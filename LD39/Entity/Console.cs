@@ -216,6 +216,8 @@ namespace LD39.Entity
         }
         private void WriteLetters()
         {
+            bool shift = input.isDown(Keys.LeftShift) || input.isDown(Keys.RightShift);
+
             if (input.isPressed(Keys.Q)) WriteLetter("q");
             if (input.isPressed(Keys.W)) WriteLetter("w");
             if (input.isPressed(Keys.E)) WriteLetter("e");
@@ -255,7 +257,7 @@ namespace LD39.Entity
             if (input.isPressed(Keys.D9) || input.isPressed(Keys.NumPad9)) WriteLetter("9");
 
             if (input.isPressed(Keys.OemPeriod)) WriteLetter(".");
-            if (input.isPressed(Keys.OemPlus)) WriteLetter("+");
+            if (input.isPressed(Keys.OemPlus)) if (shift) WriteLetter("+"); else WriteLetter("=");
             if (input.isPressed(Keys.OemMinus)) WriteLetter("-");
             if (input.isPressed(Keys.OemComma)) WriteLetter(",");
             if (input.isPressed(Keys.Space)) WriteLetter(" ");
@@ -291,7 +293,7 @@ namespace LD39.Entity
                 Dictionary<string, string> argumentDict = new Dictionary<string, string>();
                 for (int i = 1; i < argumentsList.Length; i++)
                 {
-                    char[] seperator = { '/' };
+                    char[] seperator = { '=' };
                     string[] argument = argumentsList[i].Split(seperator, 2);
 
                     if (argument.Count() > 1)
@@ -302,7 +304,6 @@ namespace LD39.Entity
                     {
                         argumentDict.Add(argument[0], null);
                     }
-
                 }
 
                 commandManager.ParseCommand(command, argumentDict);
