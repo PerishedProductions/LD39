@@ -20,6 +20,8 @@ namespace LD39.Entity
         public override void Init()
         {
             cities.Add(new City(new Vector2(100, 50), bigCity));
+            cities.Add(new City(new Vector2(150, -20), bigCity));
+            cities.Add(new City(new Vector2(50, -40), bigCity));
         }
 
         public override void Update(GameTime gameTime)
