@@ -1,14 +1,17 @@
-﻿using LD39.Managers;
+﻿using LD39.Commands;
+using LD39.Managers;
 using LD39.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace LD39.Entity
 {
     public class Console : Entity
     {
+        private CommandManager commandManager = new CommandManager();
         private InputManager input = InputManager.Instance;
         public Rectangle Screen { get; set; }
 
@@ -27,6 +30,7 @@ namespace LD39.Entity
         public int ConsoleTopLogLine { get; set; } = 0;
         public int ConsoleLogMaxVisibleLines { get; set; } = 20;
         public int ConsoleMaxLines { get; set; } = 100;
+        public int ConsoleLineWidth { get; set; } = 40;
 
         public Console(Vector2 position, Texture2D texture, SpriteFont font) : base(position, texture)
         {
@@ -36,33 +40,7 @@ namespace LD39.Entity
 
         public override void Init()
         {
-            ConsoleLog.Add("Hello");
-            ConsoleLog.Add("World");
-            ConsoleLog.Add("Lorem");
-            ConsoleLog.Add("Ipsum");
-            ConsoleLog.Add("Stuff");
-            ConsoleLog.Add("Random");
-            ConsoleLog.Add("Computer");
-            ConsoleLog.Add("Power");
-            ConsoleLog.Add("Ludum Dare");
-            ConsoleLog.Add("Hello2");
-            ConsoleLog.Add("World2");
-            ConsoleLog.Add("Lorem2");
-            ConsoleLog.Add("Ipsum2");
-            ConsoleLog.Add("Stuff2");
-            ConsoleLog.Add("Random2");
-            ConsoleLog.Add("Computer2");
-            ConsoleLog.Add("Power2");
-            ConsoleLog.Add("Ludum Dare2");
-            ConsoleLog.Add("Hello3");
-            ConsoleLog.Add("World3");
-            ConsoleLog.Add("Lorem3");
-            ConsoleLog.Add("Ipsum3");
-            ConsoleLog.Add("Stuff3");
-            ConsoleLog.Add("Random3");
-            ConsoleLog.Add("Computer3");
-            ConsoleLog.Add("Power3");
-            ConsoleLog.Add("Ludum Dare3");
+            commandManager.CommandFeedback = AddLinesToConsole;
             ConsoleLog.Add(" ");
         }
 
@@ -161,13 +139,13 @@ namespace LD39.Entity
         }
         private bool MoveCursorDown()
         {
+            if (CursorPosition.Y >= ConsoleLog.Count - 1)
+            {
+                return false;
+            }
+
             if (CursorPosition.Y == ConsoleTopLogLine + ConsoleLogMaxVisibleLines - 1)
             {
-                if (CursorPosition.Y >= ConsoleLog.Count - 1)
-                {
-                    return false;
-                }
-
                 ConsoleTopLogLine++;
             }
 
@@ -219,7 +197,6 @@ namespace LD39.Entity
             CursorPosition = CursorPosition + new Vector2(1, 0);
             return true;
         }
-
         private void WriteLetters()
         {
             if (input.isPressed(Keys.Q)) WriteLetter("q");
@@ -269,7 +246,6 @@ namespace LD39.Entity
             if (input.isPressed(Keys.Multiply)) WriteLetter("*");
             if (input.isPressed(Keys.OemBackslash)) WriteLetter("\\");
         }
-
         private void WriteLetter(string letter)
         {
             string line = ConsoleLog[ConsoleLog.Count - 1];
@@ -280,24 +256,25 @@ namespace LD39.Entity
             MoveCursorRight();
 
         }
-
-        private void ConfirmCommand()
+        private void ConfirmCommand(bool IgnoreKeyPress = false)
         {
-            if (input.isPressed(Keys.Enter))
+            if (input.isPressed(Keys.Enter) || IgnoreKeyPress)
             {
                 string line = ConsoleLog[ConsoleLog.Count - 1];
 
-                line = line.Remove(line.Length - 1);
+                if (line.EndsWith(" ", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    line = line.Remove(line.Length - 1);
+                }
+
                 ConsoleLog[ConsoleLog.Count - 1] = line;
 
-
-                //TODO stuff should happen now
-
-                ConsoleLog.Add(" ");
-                MoveCursorDown();
+                if (!commandManager.ParseCommand(line))
+                {
+                    AddMessageToConsole(" ");
+                }
             }
         }
-
         private void RemoveLetters()
         {
             if (input.isPressed(Keys.Delete))
@@ -323,7 +300,50 @@ namespace LD39.Entity
                 }
             }
         }
+        public void AddLinesToConsole(List<string> messages)
+        {
+            for (int i = 0; i < messages.Count; i++)
+            {
+                AddMessageToConsole(messages[i].ToLowerInvariant());
+            }
 
+            AddMessageToConsole(" ");
+        }
+        private void AddMessageToConsole(string message)
+        {
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                ConsoleLog.Add(message);
+                MoveCursorDown();
+            }
+
+            string[] messages = message.Split(' ');
+            string consoleLine = "";
+            for (int i = 0; i < messages.Length; i++)
+            {
+                if (consoleLine.Length + messages[i].Length <= ConsoleLineWidth && i < messages.Length - 1)
+                {
+                    if (consoleLine.Length == 0)
+                    {
+                        consoleLine += messages[i];
+                    }
+                    else
+                    {
+                        consoleLine += " " + messages[i];
+                    }
+
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(consoleLine))
+                    {
+                        ConsoleLog.Add(consoleLine);
+                        MoveCursorDown();
+                    }
+                    consoleLine = "";
+                }
+            }
+        }
         private bool IsCursorAtConsoleEnd()
         {
             return CursorPosition.Y == ConsoleTopLogLine + ConsoleLogMaxVisibleLines - 1;
