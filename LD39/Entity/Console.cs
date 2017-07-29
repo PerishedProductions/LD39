@@ -21,7 +21,7 @@ namespace LD39.Entity
 
         public int CursorBlinkingSpeed { get; set; } = 750;
         public char CursorCharacter { get; set; } = '_';
-        public Vector2 CursorPosition { get; set; } = new Vector2(0f, 0f);
+        public Vector2 CursorPosition { get; set; } = new Vector2(0, 0);
 
         public List<string> ConsoleLog = new List<string>();
         public Color ConsoleTextColor { get; set; } = Color.White;
@@ -43,15 +43,15 @@ namespace LD39.Entity
         {
             commandManager = new CommandManager(AddLinesToConsole);
             commandManager.Init(this);
-            ConsoleLog.Add(" ");
+            Reset();
         }
 
         public void Clear()
         {
             ConsoleLog.Clear();
-            ConsoleLog.Add(" ");
+            ConsoleLog.Add("> ");
             ConsoleTopLogLine = 0;
-            CursorPosition = new Vector2(0f, 0f);
+            CursorPosition = new Vector2(1, 0f);
         }
 
         public void Reset()
@@ -179,13 +179,13 @@ namespace LD39.Entity
         }
         private bool MoveCursorLeft()
         {
-            if (CursorPosition.X == 0)
+            if (CursorPosition.X == 1)
             {
                 if (MoveCursorUp())
                 {
                     string currentLine = ConsoleLog[(int)CursorPosition.Y];
 
-                    CursorPosition = CursorPosition + new Vector2(currentLine.Length - 1, 0);
+                    CursorPosition = CursorPosition + new Vector2(currentLine.Length - 2, 0);
                     return true;
                 }
 
@@ -203,13 +203,12 @@ namespace LD39.Entity
             {
                 if (MoveCursorDown())
                 {
-                    CursorPosition = CursorPosition - new Vector2(CursorPosition.X, 0);
+                    CursorPosition = CursorPosition - new Vector2(CursorPosition.X - 1, 0);
                     return true;
                 }
 
                 return false;
             }
-
 
             CursorPosition = CursorPosition + new Vector2(1, 0);
             return true;
@@ -288,6 +287,11 @@ namespace LD39.Entity
 
                 ConsoleLog[ConsoleLog.Count - 1] = line;
 
+                if (line.StartsWith(">", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    line = line.Remove(0, 1);
+                }
+
                 string[] argumentsList = line.Split(' ');
                 string command = argumentsList[0];
                 Dictionary<string, string> argumentDict = new Dictionary<string, string>();
@@ -326,7 +330,7 @@ namespace LD39.Entity
             {
                 string line = ConsoleLog[ConsoleLog.Count - 1];
 
-                if (line.Length > 1 && line.Length - CursorPosition.X > 0)
+                if (line.Length > 2 && line.Length - CursorPosition.X > 0 && CursorPosition.X > 1)
                 {
                     line = line.Remove((int)CursorPosition.X - 1, 1);
                     ConsoleLog[ConsoleLog.Count - 1] = line;
@@ -345,7 +349,7 @@ namespace LD39.Entity
             }
 
 
-            AddMessageToConsole(" ");
+            AddMessageToConsole("> ");
         }
         private void AddMessageToConsole(string message)
         {
@@ -378,7 +382,8 @@ namespace LD39.Entity
                         ConsoleLog.Add(consoleLine);
                         MoveCursorDown();
                     }
-                    consoleLine = "";
+
+                    consoleLine = messages[i];
                 }
 
                 if (i == messages.Length - 1)
