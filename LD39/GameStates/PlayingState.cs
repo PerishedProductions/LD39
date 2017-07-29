@@ -24,7 +24,8 @@ namespace LD39.GameStates
             bg = game.Content.Load<Texture2D>("Sprites/BlackBox");
             map = game.Content.Load<Texture2D>("Sprites/Island");
 
-            console = new Console(new Vector2(0, 0), bg);
+            console = new Console(new Vector2(0, 0), bg, fnt);
+            console.Init();
         }
 
         public override void Update(GameTime gameTime)
