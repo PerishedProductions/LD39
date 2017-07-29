@@ -15,7 +15,6 @@ namespace LD39.GameStates
         private SpriteFont fnt;
         private Texture2D bg;
         private Texture2D map;
-
         private Camera cam;
 
         public override void Init()
@@ -38,10 +37,12 @@ namespace LD39.GameStates
         {
             batch.Begin(cam, SpriteSortMode.Deferred, null, SamplerState.PointClamp);
             batch.Draw(map, new Vector2(-25, -180), Color.White);
+            batch.Draw(bg, new Rectangle(0, 0, 500, 500), new Color(0, 0, 0, 0.5f));
             batch.End();
 
             batch.Begin();
             batch.Draw(bg, new Rectangle(0, 0, 1280 / 2, 720), Color.Black);
+            batch.DrawString(fnt, "-- Duck Island --", new Vector2(1280 - 445, 50), Color.White);
             batch.DrawString(fnt, "> run hacker.exe", new Vector2(20, 720 - 52), Color.Green);
             batch.End();
         }
