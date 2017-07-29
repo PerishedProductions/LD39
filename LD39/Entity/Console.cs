@@ -122,12 +122,18 @@ namespace LD39.Entity
 
             if (input.isPressed(Keys.PageUp))
             {
-                //Move ConsoleLogMaxVisibleLines lines upward (Note correct cursor position in case out of bounds)
+                for (int i = 0; i < ConsoleLogMaxVisibleLines; i++)
+                {
+                    MoveCursorUp();
+                }
             }
 
             if (input.isPressed(Keys.PageDown))
             {
-                //Move ConsoleLogMaxVisibleLines lines downward (Note correct cursor position in case out of bounds)
+                for (int i = 0; i < ConsoleLogMaxVisibleLines; i++)
+                {
+                    MoveCursorDown();
+                }
             }
         }
         private bool MoveCursorUp()
