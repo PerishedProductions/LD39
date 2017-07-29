@@ -319,9 +319,9 @@ namespace LD39.Entity
             {
                 string line = ConsoleLog[ConsoleLog.Count - 1];
 
-                if (line.Length > 2 && line.Length - CursorPosition.X > 2)
+                if (line.Length > 2 && line.Length - CursorPosition.X > 1)
                 {
-                    line = line.Remove((int)CursorPosition.X + 1, 1);
+                    line = line.Remove((int)CursorPosition.X, 1);
                     ConsoleLog[ConsoleLog.Count - 1] = line;
                 }
             }
