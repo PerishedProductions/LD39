@@ -5,23 +5,34 @@ namespace LD39.Commands
 {
     public class CommandManager
     {
-        public Action<List<string>> CommandFeedback { get; set; }
+        private Action<List<string>> commandAction;
+        private Dictionary<string, Command> commands = new Dictionary<string, Command>();
 
-        public bool ParseCommand(string command)
+        public CommandManager(Action<List<string>> commandCallback)
         {
-            List<string> feedback = new List<string>();
+            commandAction = commandCallback;
+        }
 
-            if (command == "help" || command == "?")
+        public void Init()
+        {
+            Command com = new HelpCommand(commandAction);
+            commands.Add(com.Name.ToLowerInvariant(), com);
+        }
+
+        public void ParseCommand(string command)
+        {
+
+            if (commands.ContainsKey(command.ToLowerInvariant()))
             {
-                feedback.Add("I am here to help you become a good little hacker.");
-                feedback.Add("Your task is to hack the power stations in the region and cause a power outage.");
-                feedback.Add("Reason: Because you can!");
-
-                CommandFeedback(feedback);
-                return true;
+                commands[command.ToLowerInvariant()].PerformCommand();
+            }
+            else
+            {
+                List<string> feedback = new List<string>();
+                feedback.Add($"'{command}' is not recognized as a command. Try 'help' in case you get stuck.");
+                commandAction(feedback);
             }
 
-            return false;
         }
     }
 }

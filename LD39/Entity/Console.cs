@@ -11,7 +11,7 @@ namespace LD39.Entity
 {
     public class Console : Entity
     {
-        private CommandManager commandManager = new CommandManager();
+        private CommandManager commandManager;
         private InputManager input = InputManager.Instance;
         public Rectangle Screen { get; set; }
 
@@ -40,7 +40,8 @@ namespace LD39.Entity
 
         public override void Init()
         {
-            commandManager.CommandFeedback = AddLinesToConsole;
+            commandManager = new CommandManager(AddLinesToConsole);
+            commandManager.Init();
             ConsoleLog.Add(" ");
         }
 
@@ -56,7 +57,7 @@ namespace LD39.Entity
 
             UpdateCursorPosition();
 
-            if (IsCursorAtConsoleEnd())
+            if (IsCursorAtLogEnd())
             {
                 WriteLetters();
                 RemoveLetters();
@@ -268,11 +269,7 @@ namespace LD39.Entity
                 }
 
                 ConsoleLog[ConsoleLog.Count - 1] = line;
-
-                if (!commandManager.ParseCommand(line))
-                {
-                    AddMessageToConsole(" ");
-                }
+                commandManager.ParseCommand(line);
             }
         }
         private void RemoveLetters()
@@ -321,7 +318,7 @@ namespace LD39.Entity
             string consoleLine = "";
             for (int i = 0; i < messages.Length; i++)
             {
-                if (consoleLine.Length + messages[i].Length <= ConsoleLineWidth && i < messages.Length - 1)
+                if (consoleLine.Length + messages[i].Length <= ConsoleLineWidth)
                 {
                     if (consoleLine.Length == 0)
                     {
@@ -342,11 +339,24 @@ namespace LD39.Entity
                     }
                     consoleLine = "";
                 }
+
+                if (i == messages.Length - 1)
+                {
+                    if (!string.IsNullOrEmpty(consoleLine))
+                    {
+                        ConsoleLog.Add(consoleLine);
+                        MoveCursorDown();
+                    }
+                }
             }
         }
         private bool IsCursorAtConsoleEnd()
         {
             return CursorPosition.Y == ConsoleTopLogLine + ConsoleLogMaxVisibleLines - 1;
+        }
+        private bool IsCursorAtLogEnd()
+        {
+            return CursorPosition.Y == ConsoleLog.Count - 1;
         }
 
         public override void Draw(SpriteBatch batch)

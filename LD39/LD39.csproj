@@ -44,7 +44,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandManager.cs" />
+    <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="Entity\City.cs" />
     <Compile Include="Entity\Console.cs" />
     <Compile Include="Entity\Entity.cs" />
