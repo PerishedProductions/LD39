@@ -36,6 +36,7 @@ namespace LD39.GameStates
 
             MediaPlayer.Volume = 0.1f;
             MediaPlayer.Play(isGut);
+            MediaPlayer.IsRepeating = true;
 
             console = new Console(new Vector2(0, 0), bg, fnt);
             console.Init();
