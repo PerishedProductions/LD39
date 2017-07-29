@@ -68,3 +68,9 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/BigCity.png
 
+#begin Music/IsGut.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/IsGut.wav
+

@@ -4,6 +4,7 @@ using LD39.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System.Diagnostics;
 
 namespace LD39.GameStates
@@ -15,6 +16,8 @@ namespace LD39.GameStates
         private Texture2D bg;
         private Texture2D mapSprite;
         private Texture2D circle;
+
+        private Song isGut;
 
         private Console console;
         private Map map;
@@ -29,6 +32,10 @@ namespace LD39.GameStates
             bg = game.Content.Load<Texture2D>("Sprites/BlackBox");
             mapSprite = game.Content.Load<Texture2D>("Sprites/Island");
             circle = game.Content.Load<Texture2D>("Sprites/Circle");
+            isGut = game.Content.Load<Song>("Music/IsGut");
+
+            MediaPlayer.Volume = 0.1f;
+            MediaPlayer.Play(isGut);
 
             console = new Console(new Vector2(0, 0), bg, fnt);
             console.Init();
