@@ -19,12 +19,12 @@ namespace LD39.Commands
             commands.Add(com.Name.ToLowerInvariant(), com);
         }
 
-        public void ParseCommand(string command)
+        public void ParseCommand(string command, List<string> arguments)
         {
 
             if (commands.ContainsKey(command.ToLowerInvariant()))
             {
-                commands[command.ToLowerInvariant()].PerformCommand();
+                commands[command.ToLowerInvariant()].PerformCommand(arguments);
             }
             else
             {

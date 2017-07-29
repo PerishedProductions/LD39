@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LD39.Entity
 {
@@ -269,7 +270,12 @@ namespace LD39.Entity
                 }
 
                 ConsoleLog[ConsoleLog.Count - 1] = line;
-                commandManager.ParseCommand(line);
+
+                List<string> argumentsList = line.Split(' ').ToList();
+                string command = argumentsList[0];
+                argumentsList.RemoveAt(0);
+                argumentsList.Sort();
+                commandManager.ParseCommand(command, argumentsList);
             }
         }
         private void RemoveLetters()

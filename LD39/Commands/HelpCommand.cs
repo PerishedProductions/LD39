@@ -10,14 +10,31 @@ namespace LD39.Commands
             Name = "help";
         }
 
-        public override void PerformCommand()
+        public override void DisplayHelp()
         {
-            List<string> feedback = new List<string>();
+            feedback.Add("TODO: Insert detailed help here");
+            commandAction(feedback);
+        }
 
-            feedback.Add("I am here to help you become a good little hacker.");
-            feedback.Add("Your task is to hack the power stations in the region and cause a power outage.");
-            feedback.Add("Reason: Because you can!");
+        public override void DisplayUsage()
+        {
+            feedback.Add("Help command can be used with the following optional arguments: -u <usage>, -h <help>");
+            commandAction(feedback);
+        }
 
+        public override bool HasRequiredArguments(List<string> arguments)
+        {
+            return false;
+        }
+
+        public override void PerformCommandWithArguments(List<string> arguments)
+        {
+
+        }
+
+        public override void PerformCommandWithoutArguments()
+        {
+            feedback.Add("TODO: Insert basic help here.");
             commandAction(feedback);
         }
     }
