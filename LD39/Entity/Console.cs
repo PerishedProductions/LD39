@@ -367,7 +367,7 @@ namespace LD39.Entity
 
         public override void Draw(SpriteBatch batch)
         {
-            batch.Begin();
+            batch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
             batch.Draw(Texture, Screen, ConsoleColor);
 
             for (int i = 0; i < ConsoleLogMaxVisibleLines; i++)
@@ -384,7 +384,7 @@ namespace LD39.Entity
                     LogLine = LogLine.ReplaceAt((int)CursorPosition.X, CursorCharacter);
                 }
 
-                batch.DrawString(ConsoleFont, LogLine, new Vector2(10, 10 + 32 * i), ConsoleTextColor);
+                batch.DrawString(ConsoleFont, LogLine, new Vector2(10, 10 + 24 * i), ConsoleTextColor);
             }
 
             batch.DrawString(ConsoleFont, string.Concat("X:", CursorPosition.X, " Y:", CursorPosition.Y.ToString()), new Vector2(500, 10), Color.Green);

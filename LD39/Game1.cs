@@ -34,6 +34,7 @@ namespace LD39
             Window.Title = "LD39 - GAMETITLE";
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
+            graphics.IsFullScreen = false;
             graphics.ApplyChanges();
 
             PlayingState newState = new PlayingState();
