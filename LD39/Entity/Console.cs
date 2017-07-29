@@ -222,32 +222,32 @@ namespace LD39.Entity
 
         private void WriteLetters()
         {
-            if (input.isPressed(Keys.Q)) WriteLetter("Q");
-            if (input.isPressed(Keys.W)) WriteLetter("W");
-            if (input.isPressed(Keys.E)) WriteLetter("E");
-            if (input.isPressed(Keys.R)) WriteLetter("R");
-            if (input.isPressed(Keys.T)) WriteLetter("T");
-            if (input.isPressed(Keys.Y)) WriteLetter("Y");
-            if (input.isPressed(Keys.U)) WriteLetter("U");
-            if (input.isPressed(Keys.I)) WriteLetter("I");
-            if (input.isPressed(Keys.O)) WriteLetter("O");
-            if (input.isPressed(Keys.P)) WriteLetter("P");
-            if (input.isPressed(Keys.A)) WriteLetter("A");
-            if (input.isPressed(Keys.S)) WriteLetter("S");
-            if (input.isPressed(Keys.D)) WriteLetter("D");
-            if (input.isPressed(Keys.F)) WriteLetter("F");
-            if (input.isPressed(Keys.G)) WriteLetter("G");
-            if (input.isPressed(Keys.H)) WriteLetter("H");
-            if (input.isPressed(Keys.J)) WriteLetter("J");
-            if (input.isPressed(Keys.K)) WriteLetter("K");
-            if (input.isPressed(Keys.L)) WriteLetter("L");
-            if (input.isPressed(Keys.Z)) WriteLetter("Z");
-            if (input.isPressed(Keys.X)) WriteLetter("X");
-            if (input.isPressed(Keys.C)) WriteLetter("C");
-            if (input.isPressed(Keys.V)) WriteLetter("V");
-            if (input.isPressed(Keys.B)) WriteLetter("B");
-            if (input.isPressed(Keys.N)) WriteLetter("N");
-            if (input.isPressed(Keys.M)) WriteLetter("M");
+            if (input.isPressed(Keys.Q)) WriteLetter("q");
+            if (input.isPressed(Keys.W)) WriteLetter("w");
+            if (input.isPressed(Keys.E)) WriteLetter("e");
+            if (input.isPressed(Keys.R)) WriteLetter("r");
+            if (input.isPressed(Keys.T)) WriteLetter("t");
+            if (input.isPressed(Keys.Y)) WriteLetter("y");
+            if (input.isPressed(Keys.U)) WriteLetter("u");
+            if (input.isPressed(Keys.I)) WriteLetter("i");
+            if (input.isPressed(Keys.O)) WriteLetter("o");
+            if (input.isPressed(Keys.P)) WriteLetter("p");
+            if (input.isPressed(Keys.A)) WriteLetter("a");
+            if (input.isPressed(Keys.S)) WriteLetter("s");
+            if (input.isPressed(Keys.D)) WriteLetter("d");
+            if (input.isPressed(Keys.F)) WriteLetter("f");
+            if (input.isPressed(Keys.G)) WriteLetter("g");
+            if (input.isPressed(Keys.H)) WriteLetter("h");
+            if (input.isPressed(Keys.J)) WriteLetter("j");
+            if (input.isPressed(Keys.K)) WriteLetter("k");
+            if (input.isPressed(Keys.L)) WriteLetter("l");
+            if (input.isPressed(Keys.Z)) WriteLetter("z");
+            if (input.isPressed(Keys.X)) WriteLetter("x");
+            if (input.isPressed(Keys.C)) WriteLetter("c");
+            if (input.isPressed(Keys.V)) WriteLetter("v");
+            if (input.isPressed(Keys.B)) WriteLetter("b");
+            if (input.isPressed(Keys.N)) WriteLetter("n");
+            if (input.isPressed(Keys.M)) WriteLetter("m");
 
             if (input.isPressed(Keys.D0) || input.isPressed(Keys.NumPad0)) WriteLetter("0");
             if (input.isPressed(Keys.D1) || input.isPressed(Keys.NumPad1)) WriteLetter("1");
