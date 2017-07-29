@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Comora;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace LD39.Entity
@@ -20,6 +21,13 @@ namespace LD39.Entity
         public virtual void Draw(SpriteBatch batch)
         {
             batch.Begin();
+            batch.Draw(Texture, Position, Color.White);
+            batch.End();
+        }
+
+        public virtual void Draw(SpriteBatch batch, Camera cam)
+        {
+            batch.Begin(cam, SpriteSortMode.Deferred, null, SamplerState.PointClamp);
             batch.Draw(Texture, Position, Color.White);
             batch.End();
         }

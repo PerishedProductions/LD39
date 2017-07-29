@@ -1,7 +1,10 @@
 ﻿using Comora;
 using LD39.Entity;
+using LD39.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 
 namespace LD39.GameStates
 {
@@ -10,9 +13,11 @@ namespace LD39.GameStates
 
         private SpriteFont fnt;
         private Texture2D bg;
-        private Texture2D map;
+        private Texture2D mapSprite;
+        private Texture2D circle;
 
         private Console console;
+        private Map map;
 
         public override void Init()
         {
@@ -22,10 +27,13 @@ namespace LD39.GameStates
 
             fnt = game.Content.Load<SpriteFont>("Fonts/fnt");
             bg = game.Content.Load<Texture2D>("Sprites/BlackBox");
-            map = game.Content.Load<Texture2D>("Sprites/Island");
+            mapSprite = game.Content.Load<Texture2D>("Sprites/Island");
+            circle = game.Content.Load<Texture2D>("Sprites/Circle");
 
             console = new Console(new Vector2(0, 0), bg, fnt);
             console.Init();
+            map = new Map(new Vector2(-25, -365 / 2), mapSprite, game.Content.Load<Texture2D>("Sprites/BigCity"));
+            map.Init();
         }
 
         public override void Update(GameTime gameTime)
@@ -35,11 +43,7 @@ namespace LD39.GameStates
 
         public override void Draw(SpriteBatch batch)
         {
-            batch.Begin(cam, SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            batch.Draw(map, new Vector2(-25, -180), Color.White);
-            batch.Draw(bg, new Rectangle(0, 0, 500, 500), new Color(0, 0, 0, 0.5f));
-            batch.End();
-
+            map.Draw(batch, cam);
             console.Draw(batch);
         }
     }
