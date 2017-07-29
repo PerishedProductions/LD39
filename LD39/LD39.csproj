@@ -44,6 +44,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Entity\Console.cs" />
+    <Compile Include="Entity\Entity.cs" />
+    <Compile Include="Entity\Map.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameStates\GameState.cs" />
     <Compile Include="GameStates\PlayingState.cs" />
