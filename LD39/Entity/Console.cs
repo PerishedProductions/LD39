@@ -54,6 +54,13 @@ namespace LD39.Entity
             CursorPosition = new Vector2(0f, 0f);
         }
 
+        public void Reset()
+        {
+            ConsoleTextColor = Color.White;
+            ConsoleColor = Color.Black;
+            Clear();
+        }
+
         public override void Update(GameTime gameTime)
         {
             CurrentCursorBlinkTime += gameTime.ElapsedGameTime.Milliseconds;
@@ -279,11 +286,26 @@ namespace LD39.Entity
 
                 ConsoleLog[ConsoleLog.Count - 1] = line;
 
-                List<string> argumentsList = line.Split(' ').ToList();
+                string[] argumentsList = line.Split(' ');
                 string command = argumentsList[0];
-                argumentsList.RemoveAt(0);
-                argumentsList.Sort();
-                commandManager.ParseCommand(command, argumentsList);
+                Dictionary<string, string> argumentDict = new Dictionary<string, string>();
+                for (int i = 1; i < argumentsList.Length; i++)
+                {
+                    char[] seperator = { '/' };
+                    string[] argument = argumentsList[i].Split(seperator, 2);
+
+                    if (argument.Count() > 1)
+                    {
+                        argumentDict.Add(argument[0], argument[1]);
+                    }
+                    else
+                    {
+                        argumentDict.Add(argument[0], null);
+                    }
+
+                }
+
+                commandManager.ParseCommand(command, argumentDict);
             }
         }
         private void RemoveLetters()
@@ -313,10 +335,14 @@ namespace LD39.Entity
         }
         public void AddLinesToConsole(List<string> messages)
         {
-            for (int i = 0; i < messages.Count; i++)
+            if (messages != null)
             {
-                AddMessageToConsole(messages[i].ToLowerInvariant());
+                for (int i = 0; i < messages.Count; i++)
+                {
+                    AddMessageToConsole(messages[i].ToLowerInvariant());
+                }
             }
+
 
             AddMessageToConsole(" ");
         }

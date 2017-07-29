@@ -22,7 +22,7 @@ namespace LD39.Commands
             commands.Add(com.Name.ToLowerInvariant(), com);
         }
 
-        public void ParseCommand(string command, List<string> arguments)
+        public void ParseCommand(string command, Dictionary<string, string> arguments)
         {
 
             if (commands.ContainsKey(command.ToLowerInvariant()))

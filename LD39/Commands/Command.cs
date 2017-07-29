@@ -14,19 +14,19 @@ namespace LD39.Commands
             commandAction = commandCallback;
         }
 
-        public void PerformCommand(List<string> arguments)
+        public void PerformCommand(Dictionary<string, string> arguments)
         {
             feedback = new List<string>();
 
             if (arguments != null && arguments.Count > 0)
             {
-                if (arguments.Contains("-usage") || arguments.Contains("-u"))
+                if (arguments.ContainsKey("-usage") || arguments.ContainsKey("-u"))
                 {
                     DisplayUsage();
                     return;
                 }
 
-                if (arguments.Contains("-help") || arguments.Contains("-h"))
+                if (arguments.ContainsKey("-help") || arguments.ContainsKey("-h"))
                 {
                     DisplayHelp();
                     return;
@@ -47,9 +47,9 @@ namespace LD39.Commands
             }
         }
 
-        public abstract void PerformCommandWithArguments(List<string> arguments);
+        public abstract void PerformCommandWithArguments(Dictionary<string, string> arguments);
         public abstract void PerformCommandWithoutArguments();
-        public abstract bool HasRequiredArguments(List<string> arguments);
+        public abstract bool HasRequiredArguments(Dictionary<string, string> arguments);
         public abstract void DisplayUsage();
         public abstract void DisplayHelp();
     }

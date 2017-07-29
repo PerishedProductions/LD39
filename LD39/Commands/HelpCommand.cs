@@ -22,12 +22,12 @@ namespace LD39.Commands
             commandAction(feedback);
         }
 
-        public override bool HasRequiredArguments(List<string> arguments)
+        public override bool HasRequiredArguments(Dictionary<string, string> arguments)
         {
             return false;
         }
 
-        public override void PerformCommandWithArguments(List<string> arguments)
+        public override void PerformCommandWithArguments(Dictionary<string, string> arguments)
         {
 
         }
