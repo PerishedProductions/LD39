@@ -15,7 +15,7 @@ namespace LD39.Entity
         }
 
         public abstract void Init();
-        public abstract void Update(GameTime gametime);
+        public abstract void Update(GameTime gameTime);
 
         public virtual void Draw(SpriteBatch batch)
         {

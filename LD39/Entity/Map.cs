@@ -15,7 +15,7 @@ namespace LD39.Entity
             throw new NotImplementedException();
         }
 
-        public override void Update(GameTime gametime)
+        public override void Update(GameTime gameTime)
         {
             throw new NotImplementedException();
         }

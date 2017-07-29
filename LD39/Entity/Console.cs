@@ -12,7 +12,7 @@ namespace LD39.Entity
         public bool CursorBlink { get; set; } = false;
         public int CurrentCursorBlinkTime { get; set; } = 0;
 
-        public int CursorBlinkingSpeed { get; set; } = 500;
+        public int CursorBlinkingSpeed { get; set; } = 750;
         public char CursorCharacter { get; set; } = '_';
         public Vector2 CursorPosition { get; set; } = new Vector2(0f, 0f);
 
@@ -40,9 +40,15 @@ namespace LD39.Entity
             ConsoleLog.Add("Ludum Dare");
         }
 
-        public override void Update(GameTime gametime)
+        public override void Update(GameTime gameTime)
         {
-            //throw new NotImplementedException();
+            CurrentCursorBlinkTime += gameTime.ElapsedGameTime.Milliseconds;
+
+            if (CurrentCursorBlinkTime > CursorBlinkingSpeed)
+            {
+                CurrentCursorBlinkTime = 0;
+                CursorBlink = !CursorBlink;
+            }
         }
 
         public override void Draw(SpriteBatch batch)
