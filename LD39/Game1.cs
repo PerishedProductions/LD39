@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using LD39.GameStates;
+using System.Collections.Generic;
 
 namespace LD39
 {
@@ -11,6 +13,8 @@ namespace LD39
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        Stack<GameState> gameStates = new Stack<GameState>();
 
         public Game1()
         {
@@ -32,6 +36,10 @@ namespace LD39
             graphics.PreferredBackBufferHeight = 720;
             graphics.ApplyChanges();
 
+            GameState newState = new GameState();
+            newState.game = this;
+            PushState(newState);
+
             base.Initialize();
         }
 
@@ -44,7 +52,9 @@ namespace LD39
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            if (gameStates.Count != 0)
+                gameStates.Peek().Init();
+
         }
 
         /// <summary>
@@ -62,9 +72,9 @@ namespace LD39
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
-        { 
-           
-
+        {
+            if (gameStates.Count != 0)
+                gameStates.Peek().Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -77,9 +87,32 @@ namespace LD39
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            if (gameStates.Count != 0)
+                gameStates.Peek().Draw(spriteBatch);
 
             base.Draw(gameTime);
         }
+
+        public void PopState()
+        {
+            gameStates.Pop();
+        }
+
+        public void PushState(GameState newState)
+        {
+            gameStates.Push(newState);
+        }
+
+        public void ChangeState(GameState newState)
+        {
+            PopState();
+            PushState(newState);
+        }
+
+        public GraphicsDevice getGraphics()
+        {
+            return graphics.GraphicsDevice;
+        }
+
     }
 }

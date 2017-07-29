@@ -66,22 +66,7 @@ namespace LD39.Managers
         {
             return mouseState.Position.ToVector2();
         }
-
-        /// <summary>
-        /// Gets the mouse position according to the camera
-        /// </summary>
-        /// <param name="viewmatrix">The viewmatrix of the camera we are currently using</param>
-        /// <returns></returns>
-        public Vector2 getMouseWorldPos()
-        {
-            if (GraphicsManager.Instance.cam != null)
-            {
-                return Vector2.Transform(mouseState.Position.ToVector2(), Matrix.Invert(GraphicsManager.Instance.cam.GetViewMatrix()));
-            }
-            //TODO: Add error hanmdling
-            return Vector2.Zero;
-        }
-
+        
         /// <summary>
         /// Returns if a mouse specific mouse button was pressed
         /// </summary>
