@@ -7,7 +7,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{5063647A-899B-4C06-9512-A017D027E8FB}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LD39</RootNamespace>
     <AssemblyName>LD39</AssemblyName>
@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Game1.cs" />
     <Compile Include="GameStates\GameState.cs" />
+    <Compile Include="GameStates\PlayingState.cs" />
     <Compile Include="Managers\InputManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -37,7 +37,7 @@ namespace LD39
             graphics.PreferredBackBufferHeight = 720;
             graphics.ApplyChanges();
 
-            GameState newState = new GameState();
+            PlayingState newState = new PlayingState();
             newState.game = this;
             PushState(newState);
 
@@ -86,7 +86,7 @@ namespace LD39
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             if (gameStates.Count != 0)
                 gameStates.Peek().Draw(spriteBatch);
