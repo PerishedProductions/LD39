@@ -45,9 +45,10 @@ namespace LD39.Commands
                 return;
             }
 
-            if (arguments.ContainsKey("-tc") || arguments.ContainsKey("-textcolor"))
+            string color = "white";
+
+            if (arguments.TryGetValue("-tc", out color) || arguments.TryGetValue("-textvalue", out color))
             {
-                string color = arguments["-tc"];
 
                 if (color == "red") console.ConsoleTextColor = Color.Red;
                 if (color == "blue") console.ConsoleTextColor = Color.Blue;
@@ -57,12 +58,13 @@ namespace LD39.Commands
                 if (color == "purple") console.ConsoleTextColor = Color.Purple;
                 if (color == "black") console.ConsoleTextColor = Color.Black;
                 if (color == "white") console.ConsoleTextColor = Color.White;
+                if (string.IsNullOrEmpty(color)) console.ConsoleTextColor = Color.White;
             }
 
-            if (arguments.ContainsKey("-sc") || arguments.ContainsKey("-screencolor"))
-            {
-                string color = arguments["-sc"];
+            color = "black";
 
+            if (arguments.TryGetValue("-sc", out color) || arguments.TryGetValue("-screencolor", out color))
+            {
                 if (color == "red") console.ConsoleColor = Color.Red;
                 if (color == "blue") console.ConsoleColor = Color.Blue;
                 if (color == "yellow") console.ConsoleColor = Color.Yellow;
@@ -71,6 +73,7 @@ namespace LD39.Commands
                 if (color == "purple") console.ConsoleColor = Color.Purple;
                 if (color == "black") console.ConsoleColor = Color.Black;
                 if (color == "white") console.ConsoleColor = Color.White;
+                if (string.IsNullOrEmpty(color)) console.ConsoleColor = Color.Black;
             }
 
             commandAction(null);
