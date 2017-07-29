@@ -42,8 +42,16 @@ namespace LD39.Entity
         public override void Init()
         {
             commandManager = new CommandManager(AddLinesToConsole);
-            commandManager.Init();
+            commandManager.Init(this);
             ConsoleLog.Add(" ");
+        }
+
+        public void Clear()
+        {
+            ConsoleLog.Clear();
+            ConsoleLog.Add(" ");
+            ConsoleTopLogLine = 0;
+            CursorPosition = new Vector2(0f, 0f);
         }
 
         public override void Update(GameTime gameTime)

@@ -13,9 +13,12 @@ namespace LD39.Commands
             commandAction = commandCallback;
         }
 
-        public void Init()
+        public void Init(LD39.Entity.Console console)
         {
             Command com = new HelpCommand(commandAction);
+            commands.Add(com.Name.ToLowerInvariant(), com);
+
+            com = new ScreenCommand(commandAction, console);
             commands.Add(com.Name.ToLowerInvariant(), com);
         }
 
