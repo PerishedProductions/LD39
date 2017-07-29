@@ -77,7 +77,13 @@ namespace LD39.Entity
             }
 
             UpdateCursorPosition();
-            UpdateInput();
+
+            if (IsCursorAtConsoleEnd())
+            {
+                WriteLetters();
+                RemoveLetters();
+                ConfirmCommand();
+            }
         }
 
         private void UpdateCursorPosition()
@@ -100,6 +106,28 @@ namespace LD39.Entity
             if (input.isPressed(Keys.Up))
             {
                 MoveCursorUp();
+            }
+
+            if (input.isPressed(Keys.Home))
+            {
+                string line = ConsoleLog[(int)CursorPosition.Y];
+                CursorPosition = CursorPosition - new Vector2(CursorPosition.X, 0);
+            }
+
+            if (input.isPressed(Keys.End))
+            {
+                string line = ConsoleLog[(int)CursorPosition.Y];
+                CursorPosition = CursorPosition + new Vector2(line.Length - 1 - CursorPosition.X, 0);
+            }
+
+            if (input.isPressed(Keys.PageUp))
+            {
+                //Move ConsoleLogMaxVisibleLines lines upward (Note correct cursor position in case out of bounds)
+            }
+
+            if (input.isPressed(Keys.PageDown))
+            {
+                //Move ConsoleLogMaxVisibleLines lines downward (Note correct cursor position in case out of bounds)
             }
         }
         private bool MoveCursorUp()
@@ -186,7 +214,7 @@ namespace LD39.Entity
             return true;
         }
 
-        private void UpdateInput()
+        private void WriteLetters()
         {
             if (input.isPressed(Keys.Q)) WriteLetter("Q");
             if (input.isPressed(Keys.W)) WriteLetter("W");
@@ -234,35 +262,65 @@ namespace LD39.Entity
             if (input.isPressed(Keys.Divide)) WriteLetter("/");
             if (input.isPressed(Keys.Multiply)) WriteLetter("*");
             if (input.isPressed(Keys.OemBackslash)) WriteLetter("\\");
-
-
-            if (input.isPressed(Keys.Delete))
-            {
-
-            }
-
-            if (input.isPressed(Keys.Enter))
-            {
-
-            }
-
-            if (input.isPressed(Keys.Back))
-            {
-
-            }
         }
 
         private void WriteLetter(string letter)
         {
-            if (CursorPosition.Y == ConsoleTopLogLine + ConsoleLogMaxVisibleLines - 1)
+            string line = ConsoleLog[ConsoleLog.Count - 1];
+
+            line = line.Insert((int)CursorPosition.X, letter);
+            ConsoleLog[ConsoleLog.Count - 1] = line;
+
+            MoveCursorRight();
+
+        }
+
+        private void ConfirmCommand()
+        {
+            if (input.isPressed(Keys.Enter))
             {
                 string line = ConsoleLog[ConsoleLog.Count - 1];
 
-                line = line.Insert((int)CursorPosition.X, letter);
+                line = line.Remove(line.Length - 1);
                 ConsoleLog[ConsoleLog.Count - 1] = line;
 
-                MoveCursorRight();
+
+                //TODO stuff should happen now
+
+                ConsoleLog.Add(" ");
+                MoveCursorDown();
             }
+        }
+
+        private void RemoveLetters()
+        {
+            if (input.isPressed(Keys.Delete))
+            {
+                string line = ConsoleLog[ConsoleLog.Count - 1];
+
+                if (line.Length > 2 && line.Length - CursorPosition.X > 2)
+                {
+                    line = line.Remove((int)CursorPosition.X + 1, 1);
+                    ConsoleLog[ConsoleLog.Count - 1] = line;
+                }
+            }
+
+            if (input.isPressed(Keys.Back))
+            {
+                string line = ConsoleLog[ConsoleLog.Count - 1];
+
+                if (line.Length > 1 && line.Length - CursorPosition.X > 0)
+                {
+                    line = line.Remove((int)CursorPosition.X - 1, 1);
+                    ConsoleLog[ConsoleLog.Count - 1] = line;
+                    MoveCursorLeft();
+                }
+            }
+        }
+
+        private bool IsCursorAtConsoleEnd()
+        {
+            return CursorPosition.Y == ConsoleTopLogLine + ConsoleLogMaxVisibleLines - 1;
         }
 
         public override void Draw(SpriteBatch batch)
