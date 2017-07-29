@@ -1,9 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LD39.GameStates;
+using LD39.Managers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using LD39.GameStates;
 using System.Collections.Generic;
-using System;
 
 namespace LD39
 {
@@ -74,6 +73,8 @@ namespace LD39
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            InputManager.Instance.Update();
+
             if (gameStates.Count != 0)
                 gameStates.Peek().Update(gameTime);
 

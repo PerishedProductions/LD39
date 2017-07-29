@@ -1,12 +1,15 @@
-﻿using LD39.Util;
+﻿using LD39.Managers;
+using LD39.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
 namespace LD39.Entity
 {
     public class Console : Entity
     {
+        private InputManager input = InputManager.Instance;
         public Rectangle Screen { get; set; }
 
         public bool CursorBlink { get; set; } = false;
@@ -38,6 +41,24 @@ namespace LD39.Entity
             ConsoleLog.Add("Computer");
             ConsoleLog.Add("Power");
             ConsoleLog.Add("Ludum Dare");
+            ConsoleLog.Add("Hello");
+            ConsoleLog.Add("World");
+            ConsoleLog.Add("Lorem");
+            ConsoleLog.Add("Ipsum");
+            ConsoleLog.Add("Stuff");
+            ConsoleLog.Add("Random");
+            ConsoleLog.Add("Computer");
+            ConsoleLog.Add("Power");
+            ConsoleLog.Add("Ludum Dare");
+            ConsoleLog.Add("Hello");
+            ConsoleLog.Add("World");
+            ConsoleLog.Add("Lorem");
+            ConsoleLog.Add("Ipsum");
+            ConsoleLog.Add("Stuff");
+            ConsoleLog.Add("Random");
+            ConsoleLog.Add("Computer");
+            ConsoleLog.Add("Power");
+            ConsoleLog.Add("Ludum Dare");
         }
 
         public override void Update(GameTime gameTime)
@@ -48,6 +69,16 @@ namespace LD39.Entity
             {
                 CurrentCursorBlinkTime = 0;
                 CursorBlink = !CursorBlink;
+            }
+
+            if (input.isPressed(Keys.Down))
+            {
+                CursorPosition = CursorPosition + new Vector2(0, 1);
+            }
+
+            if (input.isPressed(Keys.Up))
+            {
+                CursorPosition = CursorPosition - new Vector2(0, 1);
             }
         }
 
