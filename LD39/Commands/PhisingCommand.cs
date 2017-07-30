@@ -20,7 +20,7 @@ namespace LD39.Commands
         {
             feedback.Add("The phis command allows you to send phising messages to various destinations.");
             feedback.Add("With the help of phising you can retrieve data from unaware users.");
-            feedback.Add("Perhaps you can also secure there device as a potential bot for your network.");
+            feedback.Add("Perhaps you can also secure their device as a potential bot for your network.");
 
             commandAction(feedback);
         }
