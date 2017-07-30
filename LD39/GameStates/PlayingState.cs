@@ -55,6 +55,21 @@ namespace LD39.GameStates
         {
             console.Update(gameTime);
             map.Update(gameTime);
+
+            for (int i = 0; i < GameManager.Instance.cities.Count; i++)
+            {
+                if (GameManager.Instance.cities[i].IsCityActive == true)
+                {
+                    return;
+                }
+                else
+                {
+                    EndState state = new EndState();
+                    state.game = this.game;
+                    game.ChangeState(state);
+                }
+            }
+
         }
 
         public override void Draw(SpriteBatch batch)
