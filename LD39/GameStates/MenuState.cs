@@ -17,7 +17,7 @@ namespace LD39.GameStates
         private SpriteFont bigFnt;
 
         private string header = "GAME TITLE";
-        private string madeByStr = "Programming: Dragion, Cobo. Art & Music: Cobo.";
+        private string madeByStr = "Programming: Dragion, Cobo. Art & Music: Cobo. Project Managment: Trux.";
         private int headerLength;
         private int enterToStartLength;
         private int madeByLength;
