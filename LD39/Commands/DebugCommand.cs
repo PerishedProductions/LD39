@@ -64,7 +64,6 @@ namespace LD39.Commands
                 feedback.Add($"HasDDOSProtection:{city.HasDDOSProtection}");
                 feedback.Add($"OSVersion:{city.OSVersion}");
                 feedback.Add($"AntiVirusVersion:{city.AntiVirusVersion}");
-                feedback.Add($"AntiMalwareVersion:{city.AntiMalwareVersion}");
                 feedback.Add("---------------------");
             }
         }
