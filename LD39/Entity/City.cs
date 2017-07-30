@@ -21,8 +21,8 @@ namespace LD39.Entity
         public bool HasDDOSProtection { get; set; } = false;
         public int DDOSTreshold { get; set; } = 5000;
         public int Citizens { get; set; } = 10000;
-        public int Bots { get; set; } = 0;
-
+        public int Bots { get; set; } = 7500;
+        public string IP { get; set; } = "1.2.3.4";
 
         public string AdminAccount { get; set; } = "admin";
         public string AdminPass { get; set; } = "admin";

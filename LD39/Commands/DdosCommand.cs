@@ -1,5 +1,4 @@
 ﻿using LD39.Entity;
-using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace LD39.Commands
 {
     public class DdosCommand : Command
     {
-        City city = new City(new Vector2(0, 0), null);
+        public City city { get; set; }
 
         public DdosCommand(Action<List<string>> commandCallback) : base(commandCallback)
         {
@@ -22,24 +21,33 @@ namespace LD39.Commands
 
         public override void DisplayUsage()
         {
-            feedback.Add("TODO: Insert usage here");
+            feedback.Add("Usage of 'ddos': -ip <destination ip address> -b <bot count>");
             commandAction(feedback);
         }
 
         public override bool HasRequiredArguments(Dictionary<string, string> arguments)
         {
-            return true;
+            if (arguments.ContainsKey("-ip") && !string.IsNullOrEmpty(arguments["-ip"]))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public override void PerformCommandWithArguments(Dictionary<string, string> arguments)
         {
+            string ip = "127.0.0.1";
+
+            ip = arguments["-ip"];
+
             string value;
             if (arguments.TryGetValue("-b", out value) || arguments.TryGetValue("-bots", out value))
             {
                 int botcount = 0;
                 if (int.TryParse(value, out botcount))
                 {
-                    PerformDDOS(botcount);
+                    PerformDDOS(ip, botcount);
                     return;
                 }
                 else
@@ -48,17 +56,26 @@ namespace LD39.Commands
                 }
             }
 
-            PerformDDOS();
+            PerformDDOS(ip);
         }
 
         public override void PerformCommandWithoutArguments()
         {
-            PerformDDOS();
+            DisplayUsage();
         }
 
-        private void PerformDDOS(int requestedBotCount = 0)
+        private void PerformDDOS(string ip, int requestedBotCount = 0)
         {
             int actualBotCount = 0;
+
+
+            //TODO retrieve city based by IP
+            if (ip != city?.IP)
+            {
+                feedback.Add($"Unable to perform DDOS. Reason: Server with IP-address not found. IP-address={ip}");
+                commandAction(feedback);
+                return;
+            }
 
             actualBotCount = city.Bots < requestedBotCount ? city.Bots : requestedBotCount;
 
