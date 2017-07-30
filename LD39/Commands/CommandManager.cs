@@ -23,6 +23,9 @@ namespace LD39.Commands
 
             com = new CommandsCommand(commandAction);
             commands.Add(com.Name.ToLowerInvariant(), com);
+
+            com = new DdosCommand(commandAction);
+            commands.Add(com.Name.ToLowerInvariant(), com);
         }
 
         public void ParseCommand(string command, Dictionary<string, string> arguments)

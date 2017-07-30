@@ -317,11 +317,13 @@ namespace LD39.Entity
         {
             string line = ConsoleLog[ConsoleLog.Count - 1];
 
-            line = line.Insert((int)CursorPosition.X, letter);
-            ConsoleLog[ConsoleLog.Count - 1] = line;
+            if (line.Length < ConsoleLineWidth)
+            {
+                line = line.Insert((int)CursorPosition.X, letter);
+                ConsoleLog[ConsoleLog.Count - 1] = line;
 
-            MoveCursorRight();
-
+                MoveCursorRight();
+            }
         }
 
         private void ConfirmCommand(bool IgnoreKeyPress = false)
