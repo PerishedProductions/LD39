@@ -22,7 +22,8 @@ namespace LD39.Commands
 
         public override void DisplayUsage()
         {
-            throw new NotImplementedException();
+            feedback.Add("TODO: Insert help here");
+            commandAction(feedback);
         }
 
         public override bool HasRequiredArguments(Dictionary<string, string> arguments)
@@ -35,14 +36,18 @@ namespace LD39.Commands
             if (arguments.ContainsKey("-s") || arguments.ContainsKey("-start"))
             {
                 GameManager.Instance.StartMusic();
+                commandAction(null);
                 return;
             }
 
             if (arguments.ContainsKey("-p") || arguments.ContainsKey("-pause"))
             {
                 GameManager.Instance.StopMusic();
+                commandAction(null);
                 return;
             }
+
+            commandAction(null);
         }
 
         public override void PerformCommandWithoutArguments()
