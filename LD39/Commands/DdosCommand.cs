@@ -90,8 +90,12 @@ namespace LD39.Commands
 
             actualBotCount = totalBots < requestedBotCount ? totalBots : requestedBotCount;
 
-
-            if (city.DDOSTreshold > actualBotCount)
+            if (actualBotCount == 0)
+            {
+                feedback.Add($"City is unable to be DDOSed. Reason: No bots available to generate load.");
+                commandAction(feedback);
+            }
+            else if (city.DDOSTreshold > actualBotCount)
             {
                 feedback.Add($"City was DDOSed but it was able to withstand the load. bots used for attack={actualBotCount}");
                 feedback.Add("Bots used is either the requested amount or all bots that are available.");
