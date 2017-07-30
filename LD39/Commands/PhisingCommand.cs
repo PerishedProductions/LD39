@@ -87,6 +87,13 @@ namespace LD39.Commands
 
             randNum = rng.Next(0, city.Citizens * randNum / 100);
 
+            if (randNum == 0)
+            {
+                feedback.Add($"Phising for bots failed. Reason: No new devices found to install a bot");
+                commandAction(feedback);
+                return;
+            }
+
             city.Bots = city.Bots + randNum <= city.Citizens ? city.Bots + randNum : city.Citizens;
 
             feedback.Add($"Phising for bots succesfull. Increase={randNum} Total bot count={city.Bots}. IP-address={ip}");
