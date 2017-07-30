@@ -56,7 +56,7 @@ namespace LD39.Commands
         {
             feedback.Add("This game is heavily focused around using the console.");
             feedback.Add("There are several commands available to perform your hacking deeds.");
-            feedback.Add("Some can be used without any arguments, other may need them or even require them.");
+            feedback.Add("Some can be used without any arguments, others may need them or even require them.");
             feedback.Add("It is usefull to know that all commands have a -h for a small description.");
             feedback.Add("Example: help -h");
             feedback.Add("There is also a standard -u for usage explanation for each command.");

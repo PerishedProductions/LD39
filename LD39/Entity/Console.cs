@@ -53,6 +53,9 @@ namespace LD39.Entity
             commandManager = new CommandManager(AddLinesToConsole);
             commandManager.Init(this);
             Reset();
+
+            AddMessageToConsole(">intro ");
+            ConfirmCommand(true);
         }
 
         #region CursorHelperFunctions
