@@ -30,7 +30,11 @@ namespace LD39.Commands
 
         public override bool HasRequiredArguments(Dictionary<string, string> arguments)
         {
-            return true;
+            if (arguments.ContainsKey("-s") || arguments.ContainsKey("-start") || arguments.ContainsKey("-p") || arguments.ContainsKey("-pause"))
+            {
+                return true;
+            }
+            return false;
         }
 
         public override void PerformCommandWithArguments(Dictionary<string, string> arguments)
