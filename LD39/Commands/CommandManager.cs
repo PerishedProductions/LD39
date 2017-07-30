@@ -39,6 +39,9 @@ namespace LD39.Commands
             com = new DebugCommand(commandAction);
             commands.Add(com.Name.ToLowerInvariant(), com);
 
+            com = new IntroCommand(commandAction);
+            commands.Add(com.Name.ToLowerInvariant(), com);
+
         }
 
         public void ParseCommand(string command, Dictionary<string, string> arguments)
