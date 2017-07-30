@@ -8,6 +8,8 @@ namespace LD39.Commands
 {
     public class DdosCommand : Command
     {
+        private GameManager gm = GameManager.Instance;
+
         public DdosCommand(Action<List<string>> commandCallback) : base(commandCallback)
         {
             Name = "ddos";
@@ -66,8 +68,6 @@ namespace LD39.Commands
 
         private void PerformDDOS(string ip, int requestedBotCount = 0)
         {
-            GameManager gm = GameManager.Instance;
-
             int actualBotCount = 0;
 
             City city = gm.cities.Find((c) => c.IP == ip);

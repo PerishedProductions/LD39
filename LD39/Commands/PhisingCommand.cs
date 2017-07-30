@@ -8,6 +8,9 @@ namespace LD39.Commands
 {
     public class PhisingCommand : Command
     {
+        private GameManager gm = GameManager.Instance;
+        private static Random rng = new Random();
+
         public PhisingCommand(Action<List<string>> commandCallback) : base(commandCallback)
         {
             Name = "phis";
@@ -66,9 +69,6 @@ namespace LD39.Commands
 
         private void PerformIpPhising()
         {
-            GameManager gm = GameManager.Instance;
-
-            Random rng = new Random();
             int randNum = rng.Next(0, 10);
 
             if (randNum == 0)
@@ -108,8 +108,6 @@ namespace LD39.Commands
 
         private void PerformBotPhising(string ip)
         {
-            GameManager gm = GameManager.Instance;
-
             City city = gm.cities.Find((c) => c.IP == ip);
 
 
@@ -127,7 +125,6 @@ namespace LD39.Commands
                 return;
             }
 
-            Random rng = new Random();
             int randNum = rng.Next(0, 25);
 
             if (randNum == 0)
