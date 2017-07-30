@@ -61,10 +61,6 @@ namespace LD39.Commands
                     PerformDDOS(ip, botcount);
                     return;
                 }
-                else
-                {
-
-                }
             }
 
             PerformDDOS(ip);
