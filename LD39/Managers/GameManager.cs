@@ -1,4 +1,7 @@
-﻿using LD39.Entity;
+﻿using Comora;
+using LD39.Entity;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
@@ -33,6 +36,25 @@ namespace LD39.Managers
             if (mainSong != null)
             {
                 MediaPlayer.Stop();
+            }
+        }
+
+        public void DrawCityUI(SpriteBatch batch, Camera cam, SpriteFont fnt)
+        {
+            for (int i = 0; i < cities.Count; i++)
+            {
+                batch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+                batch.DrawString(fnt, "City " + (i + 1), cam.ToScreen(cities[i].Position) + new Vector2(5 - 2, -50), Color.Black);
+                batch.DrawString(fnt, "City " + (i + 1), cam.ToScreen(cities[i].Position) + new Vector2(5 + 2, -50), Color.Black);
+                batch.DrawString(fnt, "City " + (i + 1), cam.ToScreen(cities[i].Position) + new Vector2(5, -50 - 2), Color.Black);
+                batch.DrawString(fnt, "City " + (i + 1), cam.ToScreen(cities[i].Position) + new Vector2(5, -50 + 2), Color.Black);
+                batch.DrawString(fnt, "City " + (i + 1), cam.ToScreen(cities[i].Position) + new Vector2(5, -50), Color.White);
+                batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position) + new Vector2(-15 - 2, -25), Color.Black);
+                batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position) + new Vector2(-15 + 2, -25), Color.Black);
+                batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position) + new Vector2(-15, -25 - 2), Color.Black);
+                batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position) + new Vector2(-15, -25 + 2), Color.Black);
+                batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position) + new Vector2(-15, -25), Color.White);
+                batch.End();
             }
         }
 
