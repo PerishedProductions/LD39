@@ -16,12 +16,17 @@ namespace LD39.Commands
 
         public override void DisplayHelp()
         {
+            feedback.Add("The commands command displays a list of available commands.");
 
+            PerformCommandWithoutArguments();
         }
 
         public override void DisplayUsage()
         {
+            feedback.Add("Usage: commands");
+            feedback.Add("Simple yet effective");
 
+            PerformCommandWithoutArguments();
         }
 
         public override bool HasRequiredArguments(Dictionary<string, string> arguments)
@@ -31,7 +36,8 @@ namespace LD39.Commands
 
         public override void PerformCommandWithArguments(Dictionary<string, string> arguments)
         {
-
+            //Should never be called but just in case
+            PerformCommandWithoutArguments();
         }
 
         public override void PerformCommandWithoutArguments()

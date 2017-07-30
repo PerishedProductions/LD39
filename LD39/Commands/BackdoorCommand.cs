@@ -19,13 +19,27 @@ namespace LD39.Commands
 
         public override void DisplayHelp()
         {
-            feedback.Add("TODO: Insert help here");
+            feedback.Add("The backdoor command allows you to send backdoor attacks to various destinations.");
+            feedback.Add("With the help of backdoors you are able to decrease the strength of cities.");
+            feedback.Add("In turn this makes your attempts to hack stronger.");
+            feedback.Add("It goes without saying, but backdoor attempts are typically not welcome.");
+
             commandAction(feedback);
         }
 
         public override void DisplayUsage()
         {
-            feedback.Add("Usage of 'backdoor'");
+            feedback.Add("Usage: backdoor -ip [-c] [-av] [-bot]");
+            feedback.Add("Required argument: -ip");
+            feedback.Add("The target destination the attack will be send to. The value is an ip-address");
+            feedback.Add("Requires a secondary argument to specify what kind of backdoor attempt is being made.");
+            feedback.Add("Semi Optional argument: -c or -check");
+            feedback.Add("Check the software status of the target machine.");
+            feedback.Add("Semi Optional argument: -av");
+            feedback.Add("Attempt to shut down the anti virus software.");
+            feedback.Add("Semi Optional argument: -bt or -bots or -threshold");
+            feedback.Add("Attempt to decrease the resistane of the target to bot network attacks.");
+
             commandAction(feedback);
         }
 
@@ -56,7 +70,7 @@ namespace LD39.Commands
 
             }
 
-            if (arguments.ContainsKey("-bt") || arguments.ContainsKey("-bot") || arguments.ContainsKey("-threshold"))
+            if (arguments.ContainsKey("-bt") || arguments.ContainsKey("-bots") || arguments.ContainsKey("-threshold"))
             {
                 DropCityBotTreshold(ip);
             }
@@ -67,13 +81,13 @@ namespace LD39.Commands
             }
             else
             {
-                commandAction(null);
+                DisplayUsage();
             }
         }
 
         public override void PerformCommandWithoutArguments()
         {
-            DisplayHelp();
+            DisplayUsage();
         }
 
         private void DisplaySoftwareVersions(string ip)

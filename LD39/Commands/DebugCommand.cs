@@ -17,19 +17,31 @@ namespace LD39.Commands
 
         public override void DisplayHelp()
         {
-            feedback.Add("TODO: Insert help here");
+            feedback.Add("The debug command allows you to view / manipulate some background data.");
+            feedback.Add("The debug command is normally hidden, but we left it in for the explorers.");
+
             commandAction(feedback);
         }
 
         public override void DisplayUsage()
         {
-            feedback.Add("Usage of 'debug': -c <cities>");
+            feedback.Add("Usage: debug [i] [-c]");
+            feedback.Add("Optional argument: -i or -init");
+            feedback.Add("Regenerate the stats of the Cities");
+            feedback.Add("Optional argument: -c or -cities");
+            feedback.Add("Displays the information about all the cities");
+
             commandAction(feedback);
         }
 
         public override bool HasRequiredArguments(Dictionary<string, string> arguments)
         {
-            return true;
+            if (arguments.ContainsKey("-i") || arguments.ContainsKey("-init") || arguments.ContainsKey("-c") || arguments.ContainsKey("-cities"))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public override void PerformCommandWithArguments(Dictionary<string, string> arguments)

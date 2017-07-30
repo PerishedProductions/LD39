@@ -15,6 +15,7 @@ namespace LD39.Commands
         {
             feedback.Add("The music command is used to configure the audio player.");
             feedback.Add("Music makes the world go round.");
+
             commandAction(feedback);
         }
 
@@ -25,6 +26,7 @@ namespace LD39.Commands
             feedback.Add("Start the music.");
             feedback.Add("Optional argument: -p or -pause");
             feedback.Add("Pause the music.");
+
             commandAction(feedback);
         }
 

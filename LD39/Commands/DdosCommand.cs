@@ -17,13 +17,22 @@ namespace LD39.Commands
 
         public override void DisplayHelp()
         {
-            feedback.Add("TODO: Insert help here");
+            feedback.Add("The ddos command allows you to trigger a ddos attack on a target.");
+            feedback.Add("The target may resist attacks based on how well protected it is against ddos attacks.");
+            feedback.Add("This may be dealt with by increasing your botnetwork strength or by decreasing the targets resistance.");
+
             commandAction(feedback);
         }
 
         public override void DisplayUsage()
         {
-            feedback.Add("Usage of 'ddos': -ip <destination ip address> -b <bot count>");
+            feedback.Add("Usage: ddos -ip [-b]");
+            feedback.Add("Required argument: -ip");
+            feedback.Add("ip is used as a target destination for the ddos and requires an ip address as value.");
+            feedback.Add("Optional argument: -b or -bots");
+            feedback.Add("Allows you to specify how big the ddos attack should be.");
+            feedback.Add("Note that you can not use more bots than you have available in your network.");
+
             commandAction(feedback);
         }
 
