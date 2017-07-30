@@ -54,6 +54,7 @@ namespace LD39.Entity
             commandManager.Init(this);
             Reset();
 
+            ConsoleLog.Clear();
             AddMessageToConsole(">intro ");
             ConfirmCommand(true);
         }
