@@ -34,6 +34,11 @@ namespace LD39.Commands
 
         public override void PerformCommandWithArguments(Dictionary<string, string> arguments)
         {
+            if (arguments.ContainsKey("-i") || arguments.ContainsKey("-init"))
+            {
+                ReInitializeCities();
+            }
+
             if (arguments.ContainsKey("-c") || arguments.ContainsKey("-cities"))
             {
                 DisplayCityInformation();
@@ -45,6 +50,17 @@ namespace LD39.Commands
         public override void PerformCommandWithoutArguments()
         {
             DisplayUsage();
+        }
+
+        private void ReInitializeCities()
+        {
+            List<City> cities = gm.cities;
+
+            for (int i = 0; i < cities.Count; i++)
+            {
+                feedback.Add($"City {cities[i].Name} reinitialized.");
+                cities[i].Init();
+            }
         }
 
         private void DisplayCityInformation()

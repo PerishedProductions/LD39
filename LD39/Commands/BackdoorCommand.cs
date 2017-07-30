@@ -2,6 +2,7 @@
 using LD39.Managers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static LD39.Entity.City;
 
 namespace LD39.Commands
@@ -47,26 +48,27 @@ namespace LD39.Commands
             if (arguments.ContainsKey("-c") || arguments.ContainsKey("-check"))
             {
                 DisplaySoftwareVersions(ip);
-                commandAction(feedback);
-                return;
             }
 
             if (arguments.ContainsKey("-av"))
             {
                 DropAntiVirus(ip);
-                commandAction(feedback);
-                return;
-            }
 
+            }
 
             if (arguments.ContainsKey("-bt") || arguments.ContainsKey("-bot") || arguments.ContainsKey("-threshold"))
             {
                 DropCityBotTreshold(ip);
-                commandAction(feedback);
-                return;
             }
-            commandAction(null);
 
+            if (feedback.Any())
+            {
+                commandAction(feedback);
+            }
+            else
+            {
+                commandAction(null);
+            }
         }
 
         public override void PerformCommandWithoutArguments()
@@ -135,7 +137,7 @@ namespace LD39.Commands
 
             if (city.IsAntiVirusActive && city.AntiVirusVersion >= Versions.Version2 && rng.Next(0, 2) != 0)
             {
-                feedback.Add($"Unable to perform backdoor attack Reason: AntiVirus blocked attempt at data access. IP-address={ip}");
+                feedback.Add($"Unable to perform backdoor attack. Reason: AntiVirus blocked attempt at data access. IP-address={ip}");
                 return;
             }
 
