@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Comora;
 
 namespace LD39.Entity
 {
@@ -35,6 +36,8 @@ namespace LD39.Entity
 
         public bool IsCityActive { get; set; } = true;
 
+        private Color drawColor = Color.White;
+
 
         public City(Vector2 position, Texture2D texture) : base(position, texture)
         {
@@ -52,7 +55,18 @@ namespace LD39.Entity
 
         public override void Update(GameTime gameTime)
         {
-
+            if (drawColor == Color.White && IsCityActive == false)
+            {
+                drawColor = Color.Red;
+            }
         }
+
+        public override void Draw(SpriteBatch batch, Camera cam)
+        {
+            batch.Begin(cam, SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+            batch.Draw(Texture, Position, drawColor);
+            batch.End();
+        }
+
     }
 }

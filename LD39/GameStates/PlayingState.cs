@@ -52,6 +52,7 @@ namespace LD39.GameStates
         public override void Update(GameTime gameTime)
         {
             console.Update(gameTime);
+            map.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch batch)

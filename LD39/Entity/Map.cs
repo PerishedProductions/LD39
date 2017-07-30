@@ -21,18 +21,22 @@ namespace LD39.Entity
         {
             City city = new City(new Vector2(90, 60), bigCity);
             city.Init();
+            city.Name = "Quack City";
             cities.Add(city);
 
             city = new City(new Vector2(130, -10), bigCity);
             city.Init();
+            city.Name = "Derpington";
             cities.Add(city);
 
             city = new City(new Vector2(60, -80), bigCity);
             city.Init();
+            city.Name = "Yeagertown";
             cities.Add(city);
 
             city = new City(new Vector2(200, -60), bigCity);
             city.Init();
+            city.Name = "Clinchport";
             cities.Add(city);
             GameManager.Instance.cities = cities;
         }

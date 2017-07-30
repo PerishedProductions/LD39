@@ -39,17 +39,21 @@ namespace LD39.Managers
         {
             for (int i = 0; i < cities.Count; i++)
             {
+
+                int cityNameLength = (int)fnt.MeasureString(cities[i].Name).X;
+                int powerOnLength = (int)fnt.MeasureString("Power: " + cities[i].IsCityActive).X;
+
                 batch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-                batch.DrawString(fnt, cities[i].Name, cam.ToScreen(cities[i].Position) + new Vector2(5 - 2, -50), Color.Black);
-                batch.DrawString(fnt, cities[i].Name, cam.ToScreen(cities[i].Position) + new Vector2(5 + 2, -50), Color.Black);
-                batch.DrawString(fnt, cities[i].Name, cam.ToScreen(cities[i].Position) + new Vector2(5, -50 - 2), Color.Black);
-                batch.DrawString(fnt, cities[i].Name, cam.ToScreen(cities[i].Position) + new Vector2(5, -50 + 2), Color.Black);
-                batch.DrawString(fnt, cities[i].Name, cam.ToScreen(cities[i].Position) + new Vector2(5, -50), Color.White);
-                batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position) + new Vector2(-15 - 2, -25), Color.Black);
-                batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position) + new Vector2(-15 + 2, -25), Color.Black);
-                batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position) + new Vector2(-15, -25 - 2), Color.Black);
-                batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position) + new Vector2(-15, -25 + 2), Color.Black);
-                batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position) + new Vector2(-15, -25), Color.White);
+                batch.DrawString(fnt, cities[i].Name, cam.ToScreen(cities[i].Position + new Vector2(cities[i].Texture.Width / 2, 0)) + new Vector2(-2 - cityNameLength / 2, -50), Color.Black);
+                batch.DrawString(fnt, cities[i].Name, cam.ToScreen(cities[i].Position + new Vector2(cities[i].Texture.Width / 2, 0)) + new Vector2(2 - cityNameLength / 2, -50), Color.Black);
+                batch.DrawString(fnt, cities[i].Name, cam.ToScreen(cities[i].Position + new Vector2(cities[i].Texture.Width / 2, 0)) + new Vector2(-cityNameLength / 2, -50 - 2), Color.Black);
+                batch.DrawString(fnt, cities[i].Name, cam.ToScreen(cities[i].Position + new Vector2(cities[i].Texture.Width / 2, 0)) + new Vector2(-cityNameLength / 2, -50 + 2), Color.Black);
+                batch.DrawString(fnt, cities[i].Name, cam.ToScreen(cities[i].Position + new Vector2(cities[i].Texture.Width / 2, 0)) + new Vector2(-cityNameLength / 2, -50), Color.White);
+                batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position + new Vector2(cities[i].Texture.Width / 2, 0)) + new Vector2(-2 - powerOnLength / 2, -25), Color.Black);
+                batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position + new Vector2(cities[i].Texture.Width / 2, 0)) + new Vector2(2 - powerOnLength / 2, -25), Color.Black);
+                batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position + new Vector2(cities[i].Texture.Width / 2, 0)) + new Vector2(-powerOnLength / 2, -25 - 2), Color.Black);
+                batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position + new Vector2(cities[i].Texture.Width / 2, 0)) + new Vector2(-powerOnLength / 2, -25 + 2), Color.Black);
+                batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position + new Vector2(cities[i].Texture.Width / 2, 0)) + new Vector2(-powerOnLength / 2, -25), Color.White);
                 batch.End();
             }
         }
