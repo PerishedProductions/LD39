@@ -19,13 +19,14 @@ namespace LD39.Entity
 
         public Versions OSVersion { get; set; } = Versions.Version1;
         public Versions AntiVirusVersion { get; set; } = Versions.Version1;
-        public Versions MalwareVersion { get; set; } = Versions.Version1;
+        public Versions AntiMalwareVersion { get; set; } = Versions.Version1;
 
         public bool HasDDOSProtection { get; set; } = false;
         public int DDOSTreshold { get; set; } = 5000;
         public int Citizens { get; set; } = 10000;
         public int Bots { get; set; } = 0;
         public string IP { get; set; }
+        public string Name { get; set; } = "Derpington";
 
         public string AdminAccount { get; set; } = "admin";
         public string AdminPass { get; set; } = "admin";
@@ -56,7 +57,7 @@ namespace LD39.Entity
 
             OSVersion = (Versions)rng.Next(0, Enum.GetNames(typeof(Versions)).Length);
             AntiVirusVersion = (Versions)rng.Next(0, Enum.GetNames(typeof(Versions)).Length);
-            MalwareVersion = (Versions)rng.Next(0, Enum.GetNames(typeof(Versions)).Length);
+            AntiMalwareVersion = (Versions)rng.Next(0, Enum.GetNames(typeof(Versions)).Length);
         }
 
         public override void Update(GameTime gameTime)

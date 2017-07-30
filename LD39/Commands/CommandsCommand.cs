@@ -41,7 +41,10 @@ namespace LD39.Commands
 
             foreach (var item in commands)
             {
-                feedback.Add(item.Key);
+                if (!item.Value.IsHidden)
+                {
+                    feedback.Add(item.Key);
+                }
             }
             feedback.Add("------------");
             feedback.Add("Use the following optional arguments on the command for more info on the command: -u <usage>, -h <help>");

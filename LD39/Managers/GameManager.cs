@@ -3,11 +3,7 @@ using LD39.Entity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LD39.Managers
 {
@@ -44,11 +40,11 @@ namespace LD39.Managers
             for (int i = 0; i < cities.Count; i++)
             {
                 batch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-                batch.DrawString(fnt, "City " + (i + 1), cam.ToScreen(cities[i].Position) + new Vector2(5 - 2, -50), Color.Black);
-                batch.DrawString(fnt, "City " + (i + 1), cam.ToScreen(cities[i].Position) + new Vector2(5 + 2, -50), Color.Black);
-                batch.DrawString(fnt, "City " + (i + 1), cam.ToScreen(cities[i].Position) + new Vector2(5, -50 - 2), Color.Black);
-                batch.DrawString(fnt, "City " + (i + 1), cam.ToScreen(cities[i].Position) + new Vector2(5, -50 + 2), Color.Black);
-                batch.DrawString(fnt, "City " + (i + 1), cam.ToScreen(cities[i].Position) + new Vector2(5, -50), Color.White);
+                batch.DrawString(fnt, cities[i].Name, cam.ToScreen(cities[i].Position) + new Vector2(5 - 2, -50), Color.Black);
+                batch.DrawString(fnt, cities[i].Name, cam.ToScreen(cities[i].Position) + new Vector2(5 + 2, -50), Color.Black);
+                batch.DrawString(fnt, cities[i].Name, cam.ToScreen(cities[i].Position) + new Vector2(5, -50 - 2), Color.Black);
+                batch.DrawString(fnt, cities[i].Name, cam.ToScreen(cities[i].Position) + new Vector2(5, -50 + 2), Color.Black);
+                batch.DrawString(fnt, cities[i].Name, cam.ToScreen(cities[i].Position) + new Vector2(5, -50), Color.White);
                 batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position) + new Vector2(-15 - 2, -25), Color.Black);
                 batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position) + new Vector2(-15 + 2, -25), Color.Black);
                 batch.DrawString(fnt, "Power: " + cities[i].IsCityActive, cam.ToScreen(cities[i].Position) + new Vector2(-15, -25 - 2), Color.Black);

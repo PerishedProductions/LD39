@@ -5,6 +5,7 @@ namespace LD39.Commands
 {
     public abstract class Command
     {
+        public bool IsHidden { get; set; } = false;
         public string Name { get; set; }
         protected Action<List<string>> commandAction;
         protected List<string> feedback = new List<string>();
