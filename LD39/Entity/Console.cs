@@ -30,7 +30,7 @@ namespace LD39.Entity
         public SpriteFont ConsoleFont { get; set; }
 
         public int ConsoleTopLogLine { get; set; } = 0;
-        public int ConsoleLogMaxVisibleLines { get; set; } = 20;
+        public int ConsoleLogMaxVisibleLines { get; set; } = 29;
         public int ConsoleMaxLines { get; set; } = 100;
         public int ConsoleLineWidth { get; set; } = 40;
 
