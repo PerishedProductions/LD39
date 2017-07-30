@@ -2,6 +2,7 @@
 using LD39.Managers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LD39.Commands
 {
@@ -26,7 +27,7 @@ namespace LD39.Commands
 
         public override bool HasRequiredArguments(Dictionary<string, string> arguments)
         {
-            if (arguments.ContainsKey("-ip") && !string.IsNullOrEmpty(arguments["-ip"]))
+            if (arguments.ContainsKey("-ip"))
             {
                 return true;
             }
@@ -36,22 +37,73 @@ namespace LD39.Commands
 
         public override void PerformCommandWithArguments(Dictionary<string, string> arguments)
         {
-            string ip = "127.0.0.1";
+            string ip = arguments["-ip"];
 
-            ip = arguments["-ip"];
-
-            if (arguments.ContainsKey("-b") || arguments.ContainsKey("-bots"))
+            if (!string.IsNullOrEmpty(ip))
             {
-                PerformBotPhising(ip);
+                if (arguments.ContainsKey("-b") || arguments.ContainsKey("-bots"))
+                {
+                    PerformBotPhising(ip);
+                    return;
+                }
+                else
+                {
+                    DisplayUsage();
+                    return;
+                }
+            }
+            else
+            {
+                PerformIpPhising();
                 return;
             }
-
-            commandAction(null);
         }
 
         public override void PerformCommandWithoutArguments()
         {
             DisplayUsage();
+        }
+
+        private void PerformIpPhising()
+        {
+            GameManager gm = GameManager.Instance;
+
+            Random rng = new Random();
+            int randNum = rng.Next(0, 10);
+
+            if (randNum == 0)
+            {
+                feedback.Add("Attempt at IP phising has resulted into no results. Perhaps another try might lead to more information.");
+                commandAction(feedback);
+                return;
+            }
+
+            for (int i = 0; i < randNum; i++)
+            {
+                int succesfullChance = rng.Next(0, 100);
+
+                if (succesfullChance <= 15)
+                {
+                    int cityNumber = rng.Next(0, gm.cities.Count);
+
+                    City city = gm.cities[cityNumber];
+
+                    feedback.Add($"* Attempt at phising found an IP-address:{city.IP}");
+
+                }
+            }
+
+            if (feedback.Any())
+            {
+                feedback.Add($"Succesfully performed IP-Phising");
+            }
+            else
+            {
+                feedback.Add("Performed IP Phising with no results. Reason: Unfortunately by chance no one decided to fall for your traps.");
+            }
+
+
+            commandAction(feedback);
         }
 
         private void PerformBotPhising(string ip)
