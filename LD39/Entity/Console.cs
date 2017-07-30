@@ -435,6 +435,15 @@ namespace LD39.Entity
             if (string.IsNullOrWhiteSpace(message))
             {
                 ConsoleLog.Add(message);
+
+                if (ConsoleLog.Count > ConsoleMaxLines)
+                {
+                    for (int j = 0; j < ConsoleLog.Count - ConsoleMaxLines; j++)
+                    {
+                        ConsoleLog.RemoveAt(0);
+                    }
+                }
+
                 MoveCursorDown();
             }
 
@@ -442,10 +451,6 @@ namespace LD39.Entity
             string consoleLine = "";
             for (int i = 0; i < messages.Length; i++)
             {
-                if (ConsoleLog.Count > ConsoleMaxLines)
-                {
-                    ConsoleLog.RemoveAt(0);
-                }
 
                 if (consoleLine.Length + messages[i].Length <= ConsoleLineWidth)
                 {
@@ -465,6 +470,14 @@ namespace LD39.Entity
                     {
                         ConsoleLog.Add(consoleLine);
 
+                        if (ConsoleLog.Count > ConsoleMaxLines)
+                        {
+                            for (int j = 0; j < ConsoleLog.Count - ConsoleMaxLines; j++)
+                            {
+                                ConsoleLog.RemoveAt(0);
+                            }
+                        }
+
                         MoveCursorDown();
                     }
 
@@ -477,8 +490,13 @@ namespace LD39.Entity
                     {
                         ConsoleLog.Add(consoleLine);
 
-
-
+                        if (ConsoleLog.Count > ConsoleMaxLines)
+                        {
+                            for (int j = 0; j < ConsoleLog.Count - ConsoleMaxLines; j++)
+                            {
+                                ConsoleLog.RemoveAt(0);
+                            }
+                        }
 
                         MoveCursorDown();
                     }
