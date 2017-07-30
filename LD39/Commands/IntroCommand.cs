@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LD39.Commands
 {
@@ -32,7 +29,7 @@ namespace LD39.Commands
 
         public override void PerformCommandWithArguments(Dictionary<string, string> arguments)
         {
-            
+
         }
 
         public override void PerformCommandWithoutArguments()
@@ -47,7 +44,7 @@ namespace LD39.Commands
             feedback.Add("Hello Hacker Kid, i heard you are the best hacker on the planet!");
             feedback.Add("For some reason i am really mad at duck island. I want you to cause a blackout on the whole island.");
             feedback.Add("If you complete the task i will pay you 10 million dollars");
-            feedback.Add("Best Regards: Some random dude that dosent like Duck Island");
+            feedback.Add("Best Regards: Some random dude that doesnt like Duck Island");
             feedback.Add("----------------------------------");
             commandAction(feedback);
         }
