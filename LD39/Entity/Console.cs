@@ -240,32 +240,32 @@ namespace LD39.Entity
 
             #region Alphanumeric
 
-            if (input.isPressed(Keys.Q)) if (shift) WriteLetter("Q"); else WriteLetter("q");
-            if (input.isPressed(Keys.W)) if (shift) WriteLetter("W"); else WriteLetter("w");
-            if (input.isPressed(Keys.E)) if (shift) WriteLetter("E"); else WriteLetter("e");
-            if (input.isPressed(Keys.R)) if (shift) WriteLetter("R"); else WriteLetter("r");
-            if (input.isPressed(Keys.T)) if (shift) WriteLetter("T"); else WriteLetter("t");
-            if (input.isPressed(Keys.Y)) if (shift) WriteLetter("Y"); else WriteLetter("y");
-            if (input.isPressed(Keys.U)) if (shift) WriteLetter("U"); else WriteLetter("u");
-            if (input.isPressed(Keys.I)) if (shift) WriteLetter("I"); else WriteLetter("i");
-            if (input.isPressed(Keys.O)) if (shift) WriteLetter("O"); else WriteLetter("o");
-            if (input.isPressed(Keys.P)) if (shift) WriteLetter("P"); else WriteLetter("p");
-            if (input.isPressed(Keys.A)) if (shift) WriteLetter("A"); else WriteLetter("a");
-            if (input.isPressed(Keys.S)) if (shift) WriteLetter("S"); else WriteLetter("s");
-            if (input.isPressed(Keys.D)) if (shift) WriteLetter("D"); else WriteLetter("d");
-            if (input.isPressed(Keys.F)) if (shift) WriteLetter("F"); else WriteLetter("f");
-            if (input.isPressed(Keys.G)) if (shift) WriteLetter("G"); else WriteLetter("g");
-            if (input.isPressed(Keys.H)) if (shift) WriteLetter("H"); else WriteLetter("h");
-            if (input.isPressed(Keys.J)) if (shift) WriteLetter("J"); else WriteLetter("j");
-            if (input.isPressed(Keys.K)) if (shift) WriteLetter("K"); else WriteLetter("k");
-            if (input.isPressed(Keys.L)) if (shift) WriteLetter("L"); else WriteLetter("l");
-            if (input.isPressed(Keys.Z)) if (shift) WriteLetter("Z"); else WriteLetter("z");
-            if (input.isPressed(Keys.X)) if (shift) WriteLetter("X"); else WriteLetter("x");
-            if (input.isPressed(Keys.C)) if (shift) WriteLetter("C"); else WriteLetter("c");
-            if (input.isPressed(Keys.V)) if (shift) WriteLetter("V"); else WriteLetter("v");
-            if (input.isPressed(Keys.B)) if (shift) WriteLetter("B"); else WriteLetter("b");
-            if (input.isPressed(Keys.N)) if (shift) WriteLetter("N"); else WriteLetter("n");
-            if (input.isPressed(Keys.M)) if (shift) WriteLetter("M"); else WriteLetter("m");
+            if (input.isPressed(Keys.Q)) WriteLetter("q");
+            if (input.isPressed(Keys.W)) WriteLetter("w");
+            if (input.isPressed(Keys.E)) WriteLetter("e");
+            if (input.isPressed(Keys.R)) WriteLetter("r");
+            if (input.isPressed(Keys.T)) WriteLetter("t");
+            if (input.isPressed(Keys.Y)) WriteLetter("y");
+            if (input.isPressed(Keys.U)) WriteLetter("u");
+            if (input.isPressed(Keys.I)) WriteLetter("i");
+            if (input.isPressed(Keys.O)) WriteLetter("o");
+            if (input.isPressed(Keys.P)) WriteLetter("p");
+            if (input.isPressed(Keys.A)) WriteLetter("a");
+            if (input.isPressed(Keys.S)) WriteLetter("s");
+            if (input.isPressed(Keys.D)) WriteLetter("d");
+            if (input.isPressed(Keys.F)) WriteLetter("f");
+            if (input.isPressed(Keys.G)) WriteLetter("g");
+            if (input.isPressed(Keys.H)) WriteLetter("h");
+            if (input.isPressed(Keys.J)) WriteLetter("j");
+            if (input.isPressed(Keys.K)) WriteLetter("k");
+            if (input.isPressed(Keys.L)) WriteLetter("l");
+            if (input.isPressed(Keys.Z)) WriteLetter("z");
+            if (input.isPressed(Keys.X)) WriteLetter("x");
+            if (input.isPressed(Keys.C)) WriteLetter("c");
+            if (input.isPressed(Keys.V)) WriteLetter("v");
+            if (input.isPressed(Keys.B)) WriteLetter("b");
+            if (input.isPressed(Keys.N)) WriteLetter("n");
+            if (input.isPressed(Keys.M)) WriteLetter("m");
 
             if (input.isPressed(Keys.D0)) if (shift) WriteLetter(")"); else WriteLetter("0");
             if (input.isPressed(Keys.D1)) if (shift) WriteLetter("!"); else WriteLetter("1");

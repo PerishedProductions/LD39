@@ -19,8 +19,9 @@ namespace LD39.Commands
 
         public override void DisplayUsage()
         {
-            feedback.Add("Usage: help");
-            feedback.Add("Even though the help states of a test argument. There is no test argument available for use");
+            feedback.Add("Usage: help [-test]");
+            feedback.Add("Optional argument: -test");
+            feedback.Add("Test..1..2..3. Is this thing working?");
 
             commandAction(feedback);
         }
@@ -60,8 +61,9 @@ namespace LD39.Commands
             feedback.Add("Example: help -h");
             feedback.Add("There is also a standard -u for usage explanation for each command.");
             feedback.Add("Example: help -u");
-            feedback.Add("In some situations arguments require values. These may be provided by typing in the argument followed by an '=' and the value");
-            feedback.Add("Example: help -test=value");
+            feedback.Add("In some situations arguments are used by the command. Sometimes these have values and other times they don't.");
+            feedback.Add("Example without value: help -test");
+            feedback.Add("Example with value: help -test=value");
             feedback.Add("To get yourself started. Try the examples and otherwise use the 'commands' command to retrieve a list of available commands");
             commandAction(feedback);
         }
