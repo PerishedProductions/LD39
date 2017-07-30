@@ -12,14 +12,17 @@ namespace LD39.Commands
 
         public override void DisplayHelp()
         {
-            feedback.Add("TODO: Insert detailed help here");
-            commandAction(feedback);
+            feedback.Add("The help command displays some helpfull information...");
+
+            PerformCommandWithoutArguments();
         }
 
         public override void DisplayUsage()
         {
-            feedback.Add("Help command can be used with the following optional arguments: -u <usage>, -h <help>");
-            commandAction(feedback);
+            feedback.Add("Usage: help");
+            feedback.Add("No arguments, no nothing.");
+
+            PerformCommandWithoutArguments();
         }
 
         public override bool HasRequiredArguments(Dictionary<string, string> arguments)
@@ -29,7 +32,8 @@ namespace LD39.Commands
 
         public override void PerformCommandWithArguments(Dictionary<string, string> arguments)
         {
-
+            //Should never be called but just in case
+            PerformCommandWithoutArguments();
         }
 
         public override void PerformCommandWithoutArguments()

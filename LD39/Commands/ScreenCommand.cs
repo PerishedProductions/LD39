@@ -16,13 +16,22 @@ namespace LD39.Commands
 
         public override void DisplayHelp()
         {
-            feedback.Add("TODO: Insert help here");
+            feedback.Add("The screen command is used to configure the console.");
+            feedback.Add("The screen command can also be used to clear or reset the console.");
             commandAction(feedback);
         }
 
         public override void DisplayUsage()
         {
-            feedback.Add("Screen command can be used with: -r <reset> or -c <clear>");
+            feedback.Add("Usage: screen [-c] [-r] [-tc] [-sc]");
+            feedback.Add("Optional argument: -c or -clear");
+            feedback.Add("Clears the console screen of any log");
+            feedback.Add("Optional argument: -r or -reset");
+            feedback.Add("Resets the console screen to defaults");
+            feedback.Add("Optional argument: -tc or -textcolor");
+            feedback.Add("Change the console text color, accepted values: red, blue, yellow, green, purple, orange");
+            feedback.Add("Optional argument: -sc or -screencolor");
+            feedback.Add("Change the console color, accepted values: red, blue, yellow, green, purple, orange");
             commandAction(feedback);
         }
 
@@ -47,9 +56,8 @@ namespace LD39.Commands
 
             string color = "white";
 
-            if (arguments.TryGetValue("-tc", out color) || arguments.TryGetValue("-textvalue", out color))
+            if (arguments.TryGetValue("-tc", out color) || arguments.TryGetValue("-textcolor", out color))
             {
-
                 if (color == "red") console.ConsoleTextColor = Color.Red;
                 if (color == "blue") console.ConsoleTextColor = Color.Blue;
                 if (color == "yellow") console.ConsoleTextColor = Color.Yellow;

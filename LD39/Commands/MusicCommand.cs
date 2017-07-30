@@ -1,9 +1,6 @@
 ﻿using LD39.Managers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LD39.Commands
 {
@@ -16,13 +13,18 @@ namespace LD39.Commands
 
         public override void DisplayHelp()
         {
-            feedback.Add("TODO: Insert help here");
+            feedback.Add("The music command is used to configure the audio player.");
+            feedback.Add("Music makes the world go round.");
             commandAction(feedback);
         }
 
         public override void DisplayUsage()
         {
-            feedback.Add("TODO: Insert help here");
+            feedback.Add("Usage: music [-s] [-p]");
+            feedback.Add("Optional argument: -s or -start");
+            feedback.Add("Start the music.");
+            feedback.Add("Optional argument: -p or -pause");
+            feedback.Add("Pause the music.");
             commandAction(feedback);
         }
 

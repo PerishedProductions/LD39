@@ -18,13 +18,23 @@ namespace LD39.Commands
 
         public override void DisplayHelp()
         {
-            feedback.Add("TODO: Insert help here");
+            feedback.Add("The phis command allows you to send phising messages to various destinations.");
+            feedback.Add("With the help of phising you can retrieve data from unaware users.");
+            feedback.Add("Perhaps you can also secure there device as a potential bot for your network.");
             commandAction(feedback);
         }
 
         public override void DisplayUsage()
         {
-            feedback.Add("Usage of 'phis': -ip <destination ip address> -b");
+            feedback.Add("Usage: phis -ip [-b]");
+            feedback.Add("Required argument: -ip");
+            feedback.Add("Ip is in 2 ways in combination with the -b argument.");
+            feedback.Add(" - ip without a value will attempt to phis for IP addresses");
+            feedback.Add(" - ip with a value will send phising mails to the destination.");
+            feedback.Add("Requires a secondary argument to specify the data retrieved via phising.");
+            feedback.Add("Semi Optional argument: -b or -bots");
+            feedback.Add("Attempt to get more devices hooked up to your bot network via phising.");
+
             commandAction(feedback);
         }
 
