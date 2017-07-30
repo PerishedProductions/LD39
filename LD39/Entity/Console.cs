@@ -35,6 +35,7 @@ namespace LD39.Entity
         public int ConsoleLineWidth { get; set; } = 40;
 
         private const string ConsoleStartCharacter = ">";
+        private bool ConsoleLocked = false;
 
         private SoundEffect click1;
         private SoundEffect click2;
@@ -348,10 +349,11 @@ namespace LD39.Entity
         {
             if (input.isPressed(Keys.Enter) || IgnoreKeyPress)
             {
+                ConsoleLocked = true;
 
                 string line = ConsoleLog[ConsoleLog.Count - 1];
 
-                CursorPosition = CursorPosition - new Vector2(2, 0);
+                CursorPosition = new Vector2(1, CursorPosition.Y);
 
                 if (line.EndsWith(" ", StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -384,6 +386,8 @@ namespace LD39.Entity
                 }
 
                 commandManager.ParseCommand(command, argumentDict);
+
+                ConsoleLocked = false;
             }
         }
 
@@ -528,9 +532,12 @@ namespace LD39.Entity
 
             if (IsCursorAtLogEnd())
             {
-                WriteLetters();
-                RemoveLetters();
-                ConfirmCommand();
+                if (!ConsoleLocked)
+                {
+                    WriteLetters();
+                    RemoveLetters();
+                    ConfirmCommand();
+                }
             }
         }
 

@@ -62,7 +62,7 @@ namespace LD39.Commands
                 feedback.Add($"Bots:{city.Bots}");
                 feedback.Add($"DDOSThreshold:{city.DDOSTreshold}");
                 feedback.Add($"HasDDOSProtection:{city.HasDDOSProtection}");
-                feedback.Add($"OSVersion:{city.OSVersion}");
+                feedback.Add($"AntiVirusActive:{city.IsAntiVirusActive}");
                 feedback.Add($"AntiVirusVersion:{city.AntiVirusVersion}");
                 feedback.Add("---------------------");
             }
