@@ -52,7 +52,7 @@ namespace LD39.GameStates
         public override void Draw(SpriteBatch batch)
         {
             map.Draw(batch, cam);
-            console.Draw(batch);
+            console.Draw(batch);            
         }
     }
 }
