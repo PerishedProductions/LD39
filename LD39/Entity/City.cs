@@ -20,7 +20,6 @@ namespace LD39.Entity
 
         public Versions OSVersion { get; set; } = Versions.Version1;
         public Versions AntiVirusVersion { get; set; } = Versions.Version1;
-        public Versions AntiMalwareVersion { get; set; } = Versions.Version1;
 
         public bool HasDDOSProtection { get; set; } = false;
         public int DDOSTreshold { get; set; } = 5000;
@@ -28,14 +27,6 @@ namespace LD39.Entity
         public int Bots { get; set; } = 0;
         public string IP { get; set; }
         public string Name { get; set; } = "Derpington";
-
-        public string AdminAccount { get; set; } = "admin";
-        public string AdminPass { get; set; } = "admin";
-        public string UserAccount { get; set; } = "user";
-        public string UserPass { get; set; } = "user";
-
-        public bool IsAdminLoggedIn { get; set; } = false;
-        public bool IsUserLoggedIn { get; set; } = false;
 
         public bool IsCityActive { get; set; } = true;
 
@@ -51,7 +42,7 @@ namespace LD39.Entity
         {
             IP = string.Concat(rng.Next(255), ".", rng.Next(255), ".", rng.Next(255), ".", rng.Next(255));
             Citizens = rng.Next(1000, 10000000);
-            DDOSTreshold = rng.Next(0, Citizens);
+            DDOSTreshold = rng.Next(0, (int)(Citizens * 1.5));
 
             if (DDOSTreshold > Citizens - Citizens * 0.1)
             {
@@ -60,7 +51,6 @@ namespace LD39.Entity
 
             OSVersion = (Versions)rng.Next(0, Enum.GetNames(typeof(Versions)).Length);
             AntiVirusVersion = (Versions)rng.Next(0, Enum.GetNames(typeof(Versions)).Length);
-            AntiMalwareVersion = (Versions)rng.Next(0, Enum.GetNames(typeof(Versions)).Length);
         }
 
         public override void Update(GameTime gameTime)

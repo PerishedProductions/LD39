@@ -18,7 +18,7 @@ namespace LD39.Commands
 
         public override void DisplayUsage()
         {
-            feedback.Add("Usage of 'debug': -c <cities");
+            feedback.Add("Usage of 'backdoor'");
             commandAction(feedback);
         }
 
