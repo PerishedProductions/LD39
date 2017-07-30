@@ -37,7 +37,7 @@ namespace LD39
             graphics.IsFullScreen = false;
             graphics.ApplyChanges();
 
-            PlayingState newState = new PlayingState();
+            MenuState newState = new MenuState();
             newState.game = this;
             PushState(newState);
 
@@ -88,7 +88,7 @@ namespace LD39
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             if (gameStates.Count != 0)
                 gameStates.Peek().Draw(spriteBatch);
@@ -103,6 +103,7 @@ namespace LD39
 
         public void PushState(GameState newState)
         {
+            newState.Init();
             gameStates.Push(newState);
         }
 

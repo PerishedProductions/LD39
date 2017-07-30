@@ -47,6 +47,8 @@ namespace LD39.GameStates
             console.Init();
             map = new Map(new Vector2(-25, -365 / 2), mapSprite, game.Content.Load<Texture2D>("Sprites/BigCity"));
             map.Init();
+
+            GameManager.Instance.StartMusic();
         }
 
         public override void Update(GameTime gameTime)

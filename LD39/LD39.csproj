@@ -60,6 +60,7 @@
     <Compile Include="Entity\Map.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameStates\GameState.cs" />
+    <Compile Include="GameStates\MenuState.cs" />
     <Compile Include="GameStates\PlayingState.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Managers\InputManager.cs" />
