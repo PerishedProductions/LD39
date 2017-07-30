@@ -35,6 +35,10 @@ namespace LD39.Commands
             ddosCom.city = city;
             commands.Add(ddosCom.Name.ToLowerInvariant(), ddosCom);
 
+            PhisingCommand phisCommand = new PhisingCommand(commandAction);
+            phisCommand.city = city;
+            commands.Add(phisCommand.Name.ToLowerInvariant(), phisCommand);
+
         }
 
         public void ParseCommand(string command, Dictionary<string, string> arguments)

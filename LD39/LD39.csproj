@@ -47,6 +47,7 @@
     <Compile Include="Commands\CommandsCommand.cs" />
     <Compile Include="Commands\DdosCommand.cs" />
     <Compile Include="Commands\MusicCommand.cs" />
+    <Compile Include="Commands\PhisingCommand.cs" />
     <Compile Include="Commands\ScreenCommand.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandManager.cs" />
