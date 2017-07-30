@@ -278,7 +278,10 @@ namespace LD39.Entity
         {
             if (input.isPressed(Keys.Enter) || IgnoreKeyPress)
             {
+
                 string line = ConsoleLog[ConsoleLog.Count - 1];
+
+                CursorPosition = CursorPosition - new Vector2(line.Length - 2, 0);
 
                 if (line.EndsWith(" ", StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -348,7 +351,6 @@ namespace LD39.Entity
                 }
             }
 
-
             AddMessageToConsole("> ");
         }
         private void AddMessageToConsole(string message)
@@ -363,6 +365,11 @@ namespace LD39.Entity
             string consoleLine = "";
             for (int i = 0; i < messages.Length; i++)
             {
+                if (ConsoleLog.Count > ConsoleMaxLines)
+                {
+                    ConsoleLog.RemoveAt(0);
+                }
+
                 if (consoleLine.Length + messages[i].Length <= ConsoleLineWidth)
                 {
                     if (consoleLine.Length == 0)
@@ -380,6 +387,7 @@ namespace LD39.Entity
                     if (!string.IsNullOrEmpty(consoleLine))
                     {
                         ConsoleLog.Add(consoleLine);
+
                         MoveCursorDown();
                     }
 
@@ -391,6 +399,10 @@ namespace LD39.Entity
                     if (!string.IsNullOrEmpty(consoleLine))
                     {
                         ConsoleLog.Add(consoleLine);
+
+
+
+
                         MoveCursorDown();
                     }
                 }
