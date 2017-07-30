@@ -1,13 +1,13 @@
 ﻿using LD39.Entity;
+using LD39.Managers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LD39.Commands
 {
     public class DdosCommand : Command
     {
-        public City city { get; set; }
-
         public DdosCommand(Action<List<string>> commandCallback) : base(commandCallback)
         {
             Name = "ddos";
@@ -66,27 +66,35 @@ namespace LD39.Commands
 
         private void PerformDDOS(string ip, int requestedBotCount = 0)
         {
+            GameManager gm = GameManager.Instance;
+
             int actualBotCount = 0;
 
+            City city = gm.cities.Find((c) => c.IP == ip);
 
-            //TODO retrieve city based by IP
-            if (ip != city?.IP)
+            if (city == null || ip != city?.IP)
             {
                 feedback.Add($"Unable to perform DDOS. Reason: Server with IP-address not found. IP-address={ip}");
                 commandAction(feedback);
                 return;
             }
 
-            actualBotCount = city.Bots < requestedBotCount ? city.Bots : requestedBotCount;
-
             if (city.HasDDOSProtection)
             {
                 feedback.Add("City has DDOS protection. DDOS Attack failed");
                 commandAction(feedback);
+                return;
             }
-            else if (city.DDOSTreshold > actualBotCount)
+
+            int totalBots = gm.cities.Sum((c) => c.Bots);
+
+            actualBotCount = totalBots < requestedBotCount ? totalBots : requestedBotCount;
+
+
+            if (city.DDOSTreshold > actualBotCount)
             {
-                feedback.Add("City was DDOSed but it was able to withstand the load.");
+                feedback.Add($"City was DDOSed but it was able to withstand the load. bots used for attack={actualBotCount}");
+                feedback.Add("Bots used is either the requested amount or all bots that are available.");
                 commandAction(feedback);
             }
             else

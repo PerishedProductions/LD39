@@ -22,7 +22,7 @@ namespace LD39.Entity
         public int DDOSTreshold { get; set; } = 5000;
         public int Citizens { get; set; } = 10000;
         public int Bots { get; set; } = 0;
-        public string IP { get; set; } = "1.2.3.4";
+        public string IP { get; set; }
 
         public string AdminAccount { get; set; } = "admin";
         public string AdminPass { get; set; } = "admin";
@@ -35,9 +35,9 @@ namespace LD39.Entity
         public bool IsCityActive { get; set; } = true;
 
 
-        public City(Vector2 position, Texture2D texture) : base(position, texture)
+        public City(Vector2 position, Texture2D texture, string ip) : base(position, texture)
         {
-
+            IP = ip;
         }
 
         public override void Init()

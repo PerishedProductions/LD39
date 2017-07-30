@@ -2,7 +2,6 @@
 using LD39.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
 namespace LD39.Entity
@@ -20,10 +19,10 @@ namespace LD39.Entity
 
         public override void Init()
         {
-            cities.Add(new City(new Vector2(90, 60), bigCity));
-            cities.Add(new City(new Vector2(130, -10), bigCity));
-            cities.Add(new City(new Vector2(60, -80), bigCity));
-            cities.Add(new City(new Vector2(200, -60), bigCity));
+            cities.Add(new City(new Vector2(90, 60), bigCity, "1.2.3.4"));
+            cities.Add(new City(new Vector2(130, -10), bigCity, "192.168.12.43"));
+            cities.Add(new City(new Vector2(60, -80), bigCity, "232.134.0.23"));
+            cities.Add(new City(new Vector2(200, -60), bigCity, "123.255.0.1"));
             GameManager.Instance.cities = cities;
         }
 

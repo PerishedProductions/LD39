@@ -1,4 +1,5 @@
 ﻿using LD39.Entity;
+using LD39.Managers;
 using System;
 using System.Collections.Generic;
 
@@ -6,8 +7,6 @@ namespace LD39.Commands
 {
     public class PhisingCommand : Command
     {
-        public City city { get; set; }
-
         public PhisingCommand(Action<List<string>> commandCallback) : base(commandCallback)
         {
             Name = "phis";
@@ -57,8 +56,12 @@ namespace LD39.Commands
 
         private void PerformBotPhising(string ip)
         {
-            //TODO retrieve city based by IP
-            if (ip != city?.IP)
+            GameManager gm = GameManager.Instance;
+
+            City city = gm.cities.Find((c) => c.IP == ip);
+
+
+            if (city == null || ip != city?.IP)
             {
                 feedback.Add($"Unable to perform Phising. Reason: Server with IP-address not found. IP-address={ip}");
                 commandAction(feedback);
@@ -73,7 +76,7 @@ namespace LD39.Commands
             }
 
             Random rng = new Random();
-            int randNum = rng.Next(0, city.Citizens - city.Bots + 1);
+            int randNum = rng.Next(0, 25);
 
             if (randNum == 0)
             {
@@ -81,6 +84,8 @@ namespace LD39.Commands
                 commandAction(feedback);
                 return;
             }
+
+            randNum = rng.Next(0, city.Citizens * randNum / 100);
 
             city.Bots = city.Bots + randNum <= city.Citizens ? city.Bots + randNum : city.Citizens;
 
