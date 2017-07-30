@@ -33,6 +33,8 @@ namespace LD39.Entity
         public int ConsoleMaxLines { get; set; } = 100;
         public int ConsoleLineWidth { get; set; } = 40;
 
+        private const string ConsoleStartCharacter = ">";
+
         public Console(Vector2 position, Texture2D texture, SpriteFont font) : base(position, texture)
         {
             ConsoleFont = font;
@@ -46,40 +48,7 @@ namespace LD39.Entity
             Reset();
         }
 
-        public void Clear()
-        {
-            ConsoleLog.Clear();
-            ConsoleLog.Add("> ");
-            ConsoleTopLogLine = 0;
-            CursorPosition = new Vector2(1, 0f);
-        }
-
-        public void Reset()
-        {
-            ConsoleTextColor = Color.White;
-            ConsoleColor = Color.Black;
-            Clear();
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            CurrentCursorBlinkTime += gameTime.ElapsedGameTime.Milliseconds;
-
-            if (CurrentCursorBlinkTime > CursorBlinkingSpeed)
-            {
-                CurrentCursorBlinkTime = 0;
-                CursorBlink = !CursorBlink;
-            }
-
-            UpdateCursorPosition();
-
-            if (IsCursorAtLogEnd())
-            {
-                WriteLetters();
-                RemoveLetters();
-                ConfirmCommand();
-            }
-        }
+        #region CursorHelperFunctions
 
         private void UpdateCursorPosition()
         {
@@ -106,7 +75,15 @@ namespace LD39.Entity
             if (input.isPressed(Keys.Home))
             {
                 string line = ConsoleLog[(int)CursorPosition.Y];
-                CursorPosition = CursorPosition - new Vector2(CursorPosition.X, 0);
+
+                if (line.StartsWith(ConsoleStartCharacter))
+                {
+                    CursorPosition = CursorPosition - new Vector2(CursorPosition.X - 1, 0);
+                }
+                else
+                {
+                    CursorPosition = CursorPosition - new Vector2(CursorPosition.X, 0);
+                }
             }
 
             if (input.isPressed(Keys.End))
@@ -131,6 +108,7 @@ namespace LD39.Entity
                 }
             }
         }
+
         private bool MoveCursorUp()
         {
             if (CursorPosition.Y == ConsoleTopLogLine)
@@ -154,6 +132,7 @@ namespace LD39.Entity
 
             return true;
         }
+
         private bool MoveCursorDown()
         {
             if (CursorPosition.Y >= ConsoleLog.Count - 1)
@@ -177,24 +156,44 @@ namespace LD39.Entity
 
             return true;
         }
+
         private bool MoveCursorLeft()
         {
-            if (CursorPosition.X == 1)
+            string currentLine = ConsoleLog[(int)CursorPosition.Y];
+
+            if (currentLine.StartsWith(ConsoleStartCharacter))
             {
-                if (MoveCursorUp())
+                if (CursorPosition.X == 1)
                 {
-                    string currentLine = ConsoleLog[(int)CursorPosition.Y];
+                    if (MoveCursorUp())
+                    {
+                        currentLine = ConsoleLog[(int)CursorPosition.Y];
+                        CursorPosition = CursorPosition + new Vector2(currentLine.Length - 2, 0);
+                        return true;
+                    }
 
-                    CursorPosition = CursorPosition + new Vector2(currentLine.Length - 2, 0);
-                    return true;
+                    return false;
                 }
+            }
+            else
+            {
+                if (CursorPosition.X == 0)
+                {
+                    if (MoveCursorUp())
+                    {
+                        currentLine = ConsoleLog[(int)CursorPosition.Y];
+                        CursorPosition = CursorPosition + new Vector2(currentLine.Length - 2, 0);
+                        return true;
+                    }
 
-                return false;
+                    return false;
+                }
             }
 
             CursorPosition = CursorPosition - new Vector2(1, 0);
             return true;
         }
+
         private bool MoveCursorRight()
         {
             string currentLine = ConsoleLog[(int)CursorPosition.Y];
@@ -203,7 +202,17 @@ namespace LD39.Entity
             {
                 if (MoveCursorDown())
                 {
-                    CursorPosition = CursorPosition - new Vector2(CursorPosition.X - 1, 0);
+                    currentLine = ConsoleLog[(int)CursorPosition.Y];
+
+                    if (currentLine.StartsWith(ConsoleStartCharacter))
+                    {
+                        CursorPosition = CursorPosition - new Vector2(CursorPosition.X - 1, 0);
+                    }
+                    else
+                    {
+                        CursorPosition = CursorPosition - new Vector2(CursorPosition.X, 0);
+                    }
+
                     return true;
                 }
 
@@ -213,57 +222,97 @@ namespace LD39.Entity
             CursorPosition = CursorPosition + new Vector2(1, 0);
             return true;
         }
+
+        #endregion
+
+        #region ConsoleInteraction
+
         private void WriteLetters()
         {
             bool shift = input.isDown(Keys.LeftShift) || input.isDown(Keys.RightShift);
 
-            if (input.isPressed(Keys.Q)) WriteLetter("q");
-            if (input.isPressed(Keys.W)) WriteLetter("w");
-            if (input.isPressed(Keys.E)) WriteLetter("e");
-            if (input.isPressed(Keys.R)) WriteLetter("r");
-            if (input.isPressed(Keys.T)) WriteLetter("t");
-            if (input.isPressed(Keys.Y)) WriteLetter("y");
-            if (input.isPressed(Keys.U)) WriteLetter("u");
-            if (input.isPressed(Keys.I)) WriteLetter("i");
-            if (input.isPressed(Keys.O)) WriteLetter("o");
-            if (input.isPressed(Keys.P)) WriteLetter("p");
-            if (input.isPressed(Keys.A)) WriteLetter("a");
-            if (input.isPressed(Keys.S)) WriteLetter("s");
-            if (input.isPressed(Keys.D)) WriteLetter("d");
-            if (input.isPressed(Keys.F)) WriteLetter("f");
-            if (input.isPressed(Keys.G)) WriteLetter("g");
-            if (input.isPressed(Keys.H)) WriteLetter("h");
-            if (input.isPressed(Keys.J)) WriteLetter("j");
-            if (input.isPressed(Keys.K)) WriteLetter("k");
-            if (input.isPressed(Keys.L)) WriteLetter("l");
-            if (input.isPressed(Keys.Z)) WriteLetter("z");
-            if (input.isPressed(Keys.X)) WriteLetter("x");
-            if (input.isPressed(Keys.C)) WriteLetter("c");
-            if (input.isPressed(Keys.V)) WriteLetter("v");
-            if (input.isPressed(Keys.B)) WriteLetter("b");
-            if (input.isPressed(Keys.N)) WriteLetter("n");
-            if (input.isPressed(Keys.M)) WriteLetter("m");
+            #region Alphanumeric
 
-            if (input.isPressed(Keys.D0) || input.isPressed(Keys.NumPad0)) WriteLetter("0");
-            if (input.isPressed(Keys.D1) || input.isPressed(Keys.NumPad1)) WriteLetter("1");
-            if (input.isPressed(Keys.D2) || input.isPressed(Keys.NumPad2)) WriteLetter("2");
-            if (input.isPressed(Keys.D3) || input.isPressed(Keys.NumPad3)) WriteLetter("3");
-            if (input.isPressed(Keys.D4) || input.isPressed(Keys.NumPad4)) WriteLetter("4");
-            if (input.isPressed(Keys.D5) || input.isPressed(Keys.NumPad5)) WriteLetter("5");
-            if (input.isPressed(Keys.D6) || input.isPressed(Keys.NumPad6)) WriteLetter("6");
-            if (input.isPressed(Keys.D7) || input.isPressed(Keys.NumPad7)) WriteLetter("7");
-            if (input.isPressed(Keys.D8) || input.isPressed(Keys.NumPad8)) WriteLetter("8");
-            if (input.isPressed(Keys.D9) || input.isPressed(Keys.NumPad9)) WriteLetter("9");
+            if (input.isPressed(Keys.Q)) if (shift) WriteLetter("Q"); else WriteLetter("q");
+            if (input.isPressed(Keys.W)) if (shift) WriteLetter("W"); else WriteLetter("w");
+            if (input.isPressed(Keys.E)) if (shift) WriteLetter("E"); else WriteLetter("e");
+            if (input.isPressed(Keys.R)) if (shift) WriteLetter("R"); else WriteLetter("r");
+            if (input.isPressed(Keys.T)) if (shift) WriteLetter("T"); else WriteLetter("t");
+            if (input.isPressed(Keys.Y)) if (shift) WriteLetter("Y"); else WriteLetter("y");
+            if (input.isPressed(Keys.U)) if (shift) WriteLetter("U"); else WriteLetter("u");
+            if (input.isPressed(Keys.I)) if (shift) WriteLetter("I"); else WriteLetter("i");
+            if (input.isPressed(Keys.O)) if (shift) WriteLetter("O"); else WriteLetter("o");
+            if (input.isPressed(Keys.P)) if (shift) WriteLetter("P"); else WriteLetter("p");
+            if (input.isPressed(Keys.A)) if (shift) WriteLetter("A"); else WriteLetter("a");
+            if (input.isPressed(Keys.S)) if (shift) WriteLetter("S"); else WriteLetter("s");
+            if (input.isPressed(Keys.D)) if (shift) WriteLetter("D"); else WriteLetter("d");
+            if (input.isPressed(Keys.F)) if (shift) WriteLetter("F"); else WriteLetter("f");
+            if (input.isPressed(Keys.G)) if (shift) WriteLetter("G"); else WriteLetter("g");
+            if (input.isPressed(Keys.H)) if (shift) WriteLetter("H"); else WriteLetter("h");
+            if (input.isPressed(Keys.J)) if (shift) WriteLetter("J"); else WriteLetter("j");
+            if (input.isPressed(Keys.K)) if (shift) WriteLetter("K"); else WriteLetter("k");
+            if (input.isPressed(Keys.L)) if (shift) WriteLetter("L"); else WriteLetter("l");
+            if (input.isPressed(Keys.Z)) if (shift) WriteLetter("Z"); else WriteLetter("z");
+            if (input.isPressed(Keys.X)) if (shift) WriteLetter("X"); else WriteLetter("x");
+            if (input.isPressed(Keys.C)) if (shift) WriteLetter("C"); else WriteLetter("c");
+            if (input.isPressed(Keys.V)) if (shift) WriteLetter("V"); else WriteLetter("v");
+            if (input.isPressed(Keys.B)) if (shift) WriteLetter("B"); else WriteLetter("b");
+            if (input.isPressed(Keys.N)) if (shift) WriteLetter("N"); else WriteLetter("n");
+            if (input.isPressed(Keys.M)) if (shift) WriteLetter("M"); else WriteLetter("m");
 
-            if (input.isPressed(Keys.OemPeriod)) WriteLetter(".");
-            if (input.isPressed(Keys.OemPlus)) if (shift) WriteLetter("+"); else WriteLetter("=");
-            if (input.isPressed(Keys.OemMinus)) WriteLetter("-");
-            if (input.isPressed(Keys.OemComma)) WriteLetter(",");
+            if (input.isPressed(Keys.D0)) if (shift) WriteLetter(")"); else WriteLetter("0");
+            if (input.isPressed(Keys.D1)) if (shift) WriteLetter("!"); else WriteLetter("1");
+            if (input.isPressed(Keys.D2)) if (shift) WriteLetter("@"); else WriteLetter("2");
+            if (input.isPressed(Keys.D3)) if (shift) WriteLetter("#"); else WriteLetter("3");
+            if (input.isPressed(Keys.D4)) if (shift) WriteLetter("$"); else WriteLetter("4");
+            if (input.isPressed(Keys.D5)) if (shift) WriteLetter("%"); else WriteLetter("5");
+            if (input.isPressed(Keys.D6)) if (shift) WriteLetter("^"); else WriteLetter("6");
+            if (input.isPressed(Keys.D7)) if (shift) WriteLetter("&"); else WriteLetter("7");
+            if (input.isPressed(Keys.D8)) if (shift) WriteLetter("*"); else WriteLetter("8");
+            if (input.isPressed(Keys.D9)) if (shift) WriteLetter("("); else WriteLetter("9");
+
+            #endregion
+
+            #region Numpad
+
+            if (input.isPressed(Keys.Decimal)) WriteLetter(".");
+            if (input.isPressed(Keys.NumPad0)) WriteLetter("0");
+            if (input.isPressed(Keys.NumPad1)) WriteLetter("1");
+            if (input.isPressed(Keys.NumPad2)) WriteLetter("2");
+            if (input.isPressed(Keys.NumPad3)) WriteLetter("3");
+            if (input.isPressed(Keys.NumPad4)) WriteLetter("4");
+            if (input.isPressed(Keys.NumPad5)) WriteLetter("5");
+            if (input.isPressed(Keys.NumPad6)) WriteLetter("6");
+            if (input.isPressed(Keys.NumPad7)) WriteLetter("7");
+            if (input.isPressed(Keys.NumPad8)) WriteLetter("8");
+            if (input.isPressed(Keys.NumPad9)) WriteLetter("9");
+
             if (input.isPressed(Keys.Space)) WriteLetter(" ");
             if (input.isPressed(Keys.Divide)) WriteLetter("/");
             if (input.isPressed(Keys.Multiply)) WriteLetter("*");
-            if (input.isPressed(Keys.OemBackslash)) WriteLetter("\\");
+            if (input.isPressed(Keys.Subtract)) WriteLetter("-");
+            if (input.isPressed(Keys.Add)) WriteLetter("+");
+
+            #endregion
+
+            #region Specials
+
+            if (input.isPressed(Keys.OemPlus)) if (shift) WriteLetter("+"); else WriteLetter("=");
+            if (input.isPressed(Keys.OemPeriod)) if (shift) WriteLetter(">"); else WriteLetter(".");
+            if (input.isPressed(Keys.OemMinus)) if (shift) WriteLetter("_"); else WriteLetter("-");
+            if (input.isPressed(Keys.OemComma)) if (shift) WriteLetter("<"); else WriteLetter(",");
+            if (input.isPressed(Keys.OemCloseBrackets)) if (shift) WriteLetter("}"); else WriteLetter("]");
+            if (input.isPressed(Keys.OemOpenBrackets)) if (shift) WriteLetter("{"); else WriteLetter("[");
+            if (input.isPressed(Keys.OemPipe)) if (shift) WriteLetter("|"); else WriteLetter("\\");
+            if (input.isPressed(Keys.OemQuestion)) if (shift) WriteLetter("?"); else WriteLetter("/");
+            if (input.isPressed(Keys.OemQuotes)) if (shift) WriteLetter("\""); else WriteLetter("\'");
+            if (input.isPressed(Keys.OemSemicolon)) if (shift) WriteLetter(":"); else WriteLetter(";");
+            if (input.isPressed(Keys.OemBackslash)) if (shift) WriteLetter("|"); else WriteLetter("\\");
+            if (input.isPressed(Keys.OemTilde)) if (shift) WriteLetter("~"); else WriteLetter("`");
+
+            #endregion
         }
+
         private void WriteLetter(string letter)
         {
             string line = ConsoleLog[ConsoleLog.Count - 1];
@@ -274,6 +323,7 @@ namespace LD39.Entity
             MoveCursorRight();
 
         }
+
         private void ConfirmCommand(bool IgnoreKeyPress = false)
         {
             if (input.isPressed(Keys.Enter) || IgnoreKeyPress)
@@ -281,7 +331,7 @@ namespace LD39.Entity
 
                 string line = ConsoleLog[ConsoleLog.Count - 1];
 
-                CursorPosition = CursorPosition - new Vector2(line.Length - 2, 0);
+                CursorPosition = CursorPosition - new Vector2(2, 0);
 
                 if (line.EndsWith(" ", StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -290,7 +340,7 @@ namespace LD39.Entity
 
                 ConsoleLog[ConsoleLog.Count - 1] = line;
 
-                if (line.StartsWith(">", StringComparison.InvariantCultureIgnoreCase))
+                if (line.StartsWith(ConsoleStartCharacter))
                 {
                     line = line.Remove(0, 1);
                 }
@@ -316,6 +366,7 @@ namespace LD39.Entity
                 commandManager.ParseCommand(command, argumentDict);
             }
         }
+
         private void RemoveLetters()
         {
             if (input.isPressed(Keys.Delete))
@@ -341,6 +392,7 @@ namespace LD39.Entity
                 }
             }
         }
+
         public void AddLinesToConsole(List<string> messages)
         {
             if (messages != null)
@@ -351,8 +403,9 @@ namespace LD39.Entity
                 }
             }
 
-            AddMessageToConsole("> ");
+            AddMessageToConsole(string.Concat(ConsoleStartCharacter, " "));
         }
+
         private void AddMessageToConsole(string message)
         {
             if (string.IsNullOrWhiteSpace(message))
@@ -408,13 +461,57 @@ namespace LD39.Entity
                 }
             }
         }
+
+        #endregion
+
+        #region ConsoleHelperFunctions
+
+        public void Clear()
+        {
+            ConsoleLog.Clear();
+            AddMessageToConsole(string.Concat(ConsoleStartCharacter, " "));
+            ConsoleTopLogLine = 0;
+            CursorPosition = new Vector2(1, 0);
+        }
+
+        public void Reset()
+        {
+            ConsoleTextColor = Color.White;
+            ConsoleColor = Color.Black;
+            Clear();
+        }
+
         private bool IsCursorAtConsoleEnd()
         {
             return CursorPosition.Y == ConsoleTopLogLine + ConsoleLogMaxVisibleLines - 1;
         }
+
         private bool IsCursorAtLogEnd()
         {
             return CursorPosition.Y == ConsoleLog.Count - 1;
+        }
+
+        #endregion
+
+
+        public override void Update(GameTime gameTime)
+        {
+            CurrentCursorBlinkTime += gameTime.ElapsedGameTime.Milliseconds;
+
+            if (CurrentCursorBlinkTime > CursorBlinkingSpeed)
+            {
+                CurrentCursorBlinkTime = 0;
+                CursorBlink = !CursorBlink;
+            }
+
+            UpdateCursorPosition();
+
+            if (IsCursorAtLogEnd())
+            {
+                WriteLetters();
+                RemoveLetters();
+                ConfirmCommand();
+            }
         }
 
         public override void Draw(SpriteBatch batch)
