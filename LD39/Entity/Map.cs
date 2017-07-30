@@ -1,4 +1,5 @@
 ﻿using Comora;
+using LD39.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -23,6 +24,7 @@ namespace LD39.Entity
             cities.Add(new City(new Vector2(130, -10), bigCity));
             cities.Add(new City(new Vector2(60, -80), bigCity));
             cities.Add(new City(new Vector2(200, -60), bigCity));
+            GameManager.Instance.cities = cities;
         }
 
         public override void Update(GameTime gameTime)

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Commands\CommandsCommand.cs" />
     <Compile Include="Commands\DdosCommand.cs" />
+    <Compile Include="Commands\MusicCommand.cs" />
     <Compile Include="Commands\ScreenCommand.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandManager.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameStates\GameState.cs" />
     <Compile Include="GameStates\PlayingState.cs" />
+    <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Managers\InputManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

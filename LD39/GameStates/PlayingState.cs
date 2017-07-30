@@ -38,12 +38,10 @@ namespace LD39.GameStates
             circle = game.Content.Load<Texture2D>("Sprites/Circle");
             isGut = game.Content.Load<Song>("Music/IsGut");
 
+            GameManager.Instance.mainSong = isGut;
+
             click1 = game.Content.Load<SoundEffect>("Sounds/Click1");
             click2 = game.Content.Load<SoundEffect>("Sounds/Click2");
-
-            MediaPlayer.Volume = 0.05f;
-            MediaPlayer.Play(isGut);
-            MediaPlayer.IsRepeating = true;
 
             console = new Console(new Vector2(0, 0), bg, fnt, click1, click2);
             console.Init();

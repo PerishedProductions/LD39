@@ -28,9 +28,12 @@ namespace LD39.Commands
             com = new ScreenCommand(commandAction, console);
             commands.Add(com.Name.ToLowerInvariant(), com);
 
+            com = new MusicCommand(commandAction);
+            commands.Add(com.Name.ToLowerInvariant(), com);
+
             DdosCommand ddosCom = new DdosCommand(commandAction);
             ddosCom.city = city;
-            commands.Add(com.Name.ToLowerInvariant(), ddosCom);
+            commands.Add(ddosCom.Name.ToLowerInvariant(), ddosCom);
 
         }
 
