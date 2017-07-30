@@ -1,11 +1,13 @@
-﻿using Comora;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace LD39.Entity
 {
     public class City : Entity
     {
+        private static Random rng = new Random();
+
         public enum Versions
         {
             Version1,
@@ -36,14 +38,25 @@ namespace LD39.Entity
         public bool IsCityActive { get; set; } = true;
 
 
-        public City(Vector2 position, Texture2D texture, string ip) : base(position, texture)
+        public City(Vector2 position, Texture2D texture) : base(position, texture)
         {
-            IP = ip;
+
         }
 
         public override void Init()
         {
+            IP = string.Concat(rng.Next(255), ".", rng.Next(255), ".", rng.Next(255), ".", rng.Next(255));
+            Citizens = rng.Next(1000, 10000000);
+            DDOSTreshold = rng.Next(0, Citizens);
 
+            if (DDOSTreshold > Citizens - Citizens * 0.1)
+            {
+                HasDDOSProtection = true;
+            }
+
+            OSVersion = (Versions)rng.Next(0, Enum.GetNames(typeof(Versions)).Length);
+            AntiVirusVersion = (Versions)rng.Next(0, Enum.GetNames(typeof(Versions)).Length);
+            MalwareVersion = (Versions)rng.Next(0, Enum.GetNames(typeof(Versions)).Length);
         }
 
         public override void Update(GameTime gameTime)
