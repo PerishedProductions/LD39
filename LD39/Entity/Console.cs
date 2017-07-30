@@ -2,6 +2,7 @@
 using LD39.Managers;
 using LD39.Util;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -35,10 +36,15 @@ namespace LD39.Entity
 
         private const string ConsoleStartCharacter = ">";
 
-        public Console(Vector2 position, Texture2D texture, SpriteFont font) : base(position, texture)
+        private SoundEffect click1;
+        private SoundEffect click2;
+
+        public Console(Vector2 position, Texture2D texture, SpriteFont font, SoundEffect click1, SoundEffect click2) : base(position, texture)
         {
             ConsoleFont = font;
             Screen = new Rectangle((int)Position.X, (int)Position.Y, 1280 / 2, 720);
+            this.click1 = click1;
+            this.click2 = click2;
         }
 
         public override void Init()
@@ -323,6 +329,18 @@ namespace LD39.Entity
                 ConsoleLog[ConsoleLog.Count - 1] = line;
 
                 MoveCursorRight();
+
+                Random rng = new Random();
+                int randNum = rng.Next(0, 2);
+
+                if (randNum > 0.5)
+                {
+                    click1.Play();
+                }
+                else if (randNum < 0.5)
+                {
+                    click2.Play();
+                }
             }
         }
 

@@ -2,6 +2,7 @@
 using LD39.Entity;
 using LD39.Managers;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -19,6 +20,9 @@ namespace LD39.GameStates
 
         private Song isGut;
 
+        private SoundEffect click1;
+        private SoundEffect click2;
+
         private Console console;
         private Map map;
 
@@ -34,11 +38,14 @@ namespace LD39.GameStates
             circle = game.Content.Load<Texture2D>("Sprites/Circle");
             isGut = game.Content.Load<Song>("Music/IsGut");
 
-            MediaPlayer.Volume = 0.1f;
+            click1 = game.Content.Load<SoundEffect>("Sounds/Click1");
+            click2 = game.Content.Load<SoundEffect>("Sounds/Click2");
+
+            MediaPlayer.Volume = 0.05f;
             MediaPlayer.Play(isGut);
             MediaPlayer.IsRepeating = true;
 
-            console = new Console(new Vector2(0, 0), bg, fnt);
+            console = new Console(new Vector2(0, 0), bg, fnt, click1, click2);
             console.Init();
             map = new Map(new Vector2(-25, -365 / 2), mapSprite, game.Content.Load<Texture2D>("Sprites/BigCity"));
             map.Init();
@@ -52,7 +59,7 @@ namespace LD39.GameStates
         public override void Draw(SpriteBatch batch)
         {
             map.Draw(batch, cam);
-            console.Draw(batch);
+            console.Draw(batch);            
         }
     }
 }
